@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     resources :classrooms do
       resources :students
     end
+    resources :upload, only: [:index, :create, :destroy]
     post 'users/sign_in' => 'sessions#create'
     delete 'users/sign_out' => 'sessions#destroy'
   end
