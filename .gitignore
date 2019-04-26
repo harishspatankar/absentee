@@ -8,20 +8,20 @@
 /.bundle
 
 # Ignore all logfiles and tempfiles.
-/log/*
-/tmp/*
+/backend/log/*
+/backend/tmp/*
 !/log/.keep
 !/tmp/.keep
 
 # Ignore uploaded files in development
-/storage/*
+/backend/storage/*
 !/storage/.keep
 
 .byebug_history
 
 # Ignore master key for decrypting credentials and more.
-/config/master.key
-/config/database.yml
-/db/schema.rb
+/backend/config/master.key
+/backend/config/database.yml
+/backend/db/schema.rb
 .DS_Store
-/coverage
+/backend/coverage
