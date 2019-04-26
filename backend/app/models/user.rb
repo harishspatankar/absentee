@@ -3,4 +3,16 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+
+  validates :mobile_number, uniqueness: true
+  validates :mobile_number, presence: true
+  validates :mobile_number, format: { with: /\A[6789]\d{9}\z/, message: "Not a valid mobile no" }
+
+  def email_required?
+    false
+  end
+
+  def email_changed?
+    false
+  end
 end
