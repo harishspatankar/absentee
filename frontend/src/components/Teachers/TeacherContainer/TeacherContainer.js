@@ -39,7 +39,7 @@ class TeacherContainer extends PureComponent {
   }
 
   getTeachers = () => this.state.teachers
-    .map(teacher => <Teacher teacher={teacher} {...this.props} />);
+    .map(teacher => <Teacher key={teacher.id} teacher={teacher} {...this.props} />);
 
   render() {
     return (

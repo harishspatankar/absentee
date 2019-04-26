@@ -5,7 +5,7 @@ const routes = {
   dashboard,
   teachers: '/teachers',
   addTeachers: '/teachers/add',
-  editTeacher: '/teachers/:id',
+  editTeacher: '/teachers/:id/edit',
 };
 
 export default routes;

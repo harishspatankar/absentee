@@ -57,6 +57,17 @@ class AddEditUserForm extends React.PureComponent {
                 )
               }
             </Form.Item>
+            <Form.Item label="Address">
+              {
+                getFieldDecorator('address', {
+                  rules: [{
+                    required: true, message: 'Address is required',
+                  }],
+                })(
+                  <Input />,
+                )
+              }
+            </Form.Item>
             <Form.Item label="Mobile">
               {
                 getFieldDecorator('mobile', {

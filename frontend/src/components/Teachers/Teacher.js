@@ -20,15 +20,42 @@ const getPanelHeader = teacher => (
 );
 
 const getEditIcon = (teacherId, history) => (
-  <Tooltip title="Edit Teacher">
-    <Icon type="edit" onClick={() => history.push(`/teachers/${teacherId}}`)} />
-  </Tooltip>
+  <div className="teacher-collapse-extra-node">
+    <Tooltip title="Edit Teacher">
+      <Icon type="edit" onClick={() => history.push(`/teachers/${teacherId}}/edit`)} />
+    </Tooltip>
+    <Tooltip title="View Teacher">
+      <Icon type="view" onClick={() => history.push(`/teachers/${teacherId}}/view`)} />
+    </Tooltip>
+  </div>
 );
 
 const Teachers = (props) => {
   const { teacher } = props;
   return (
-    <Col className="teacher-card" xs={24} sm={18} md={14} lg={6} xl={6} xxl={4}>
+    <Col
+      className="teacher-card"
+      xs={24}
+      sm={18}
+      md={14}
+      lg={6}
+      xl={6}
+      xxl={4}
+    >
+      {/* <div>
+        <Avatar
+          size="large"
+          icon="user"
+          letter={teacher.name.charAt(0).toUpperCase()}
+          onClick={() => props.history.push(`/teachers/${teacher.id}}/edit`)}
+        />
+        <span
+          style={{ marginLeft: '10px' }}
+          onClick={() => props.history.push(`/teachers/${teacher.id}}/edit`)}
+        >
+          {teacher.name}
+        </span>
+      </div> */}
       <Collapse>
         <Panel
           key={teacher.id}
