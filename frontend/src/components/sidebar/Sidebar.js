@@ -63,7 +63,7 @@ class Sidebar extends Component {
         onBreakpoint={(broken) => { console.log(broken); }}
         onCollapse={(collapsed, type) => { console.log(collapsed, type); }}
       >
-        <div className="sidebar-logo"> Demo App </div>
+        <div className="sidebar-logo"> Absentee </div>
         <Divider />
         <Menu
             theme="dark"

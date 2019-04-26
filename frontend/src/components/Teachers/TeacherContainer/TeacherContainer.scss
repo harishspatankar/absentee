@@ -1,0 +1,21 @@
+.teachers-wrapper {
+    display: flex !important;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    margin-left: 5px!important;
+
+    .ant-collapse-header{
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    .ant-collapse-extra{
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+    }
+}
