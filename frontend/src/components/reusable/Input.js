@@ -9,7 +9,7 @@ const JInput = ({ labelClass, required, label, error, ...rest }) => (
       
     >
       {label}
-      {required && <span style={{ color: 'red' }}>*</span>}
+      {required && <span style={{ color: 'red' }}> &nbsp;*</span>}
     </span>
     <Input {...rest} style={error ? { borderColor: 'red' } : {}} />
     {error && <span className="error">{error}</span>}
