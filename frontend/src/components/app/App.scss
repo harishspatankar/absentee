@@ -2,7 +2,6 @@
 
 
 .App {
-  color: rgb(105, 102, 102);
   font-family: 'Roboto', sans-serif;
   .online {
     margin: 0px 22%;
@@ -37,11 +36,11 @@
 }
 
 .label {
-  padding-bottom: 3px;
-  color:#656060 !important;
+  color: #b5bfc7;
+  font-size: 13px;
 }
 .ant-layout-content {
-  background-color: #f0f2f5 !important;
+  background-color: #ffffff !important;
 }
 
 .select-error {
@@ -54,4 +53,12 @@
   .form-control{
     width: 100% !important;
   }
+}
+
+
+.form-header {
+  font-size: 16px;
+  text-align: center;
+  font-weight: 600;
+  letter-spacing: 2px;
 }
