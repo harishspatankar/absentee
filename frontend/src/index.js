@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import React, { lazy, Suspense } from 'react';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Skeleton } from 'antd';
