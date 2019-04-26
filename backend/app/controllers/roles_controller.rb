@@ -1,5 +1,4 @@
 class RolesController < ApplicationController
-  #before_action :authenticate_user!
   before_action :find_role, only: [:show, :edit, :destroy, :update]
 
   def index
@@ -16,19 +15,26 @@ class RolesController < ApplicationController
   end
 
   def update
-    role = Role.find params[:id]
-    role.attribues = role_params
-    if role.save
+    @role.attribues = role_params
+    if @role.save
       render json: {message: "Role updated successfully"}, status: 201
     else
-      render json: role.errors.messages, status: 422
+      render json: @role.errors.messages, status: 422
     end
+  end
+
+  def destroy
+    # TODO add role.destroy code as per school
+    # NOT as of now as we have generic roles of system
+    render json: {message: "Invalid action"}, status: 401
   end
 
   private
 
   def find_role
-    Role.find(params[:id]).select(:id, :title)
+    @role = Role.where(params[:id]).first
+    render json: {message: "Role not found"}, status: 404 unless @role
+    @role.select(:id, :title)
   end
 
   def role_params
