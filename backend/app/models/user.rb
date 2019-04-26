@@ -15,4 +15,8 @@ class User < ApplicationRecord
   def email_changed?
     false
   end
+
+  def api_key
+    JWT.encode({mobile_number: mobile_number}, JWT_SECRET)
+  end
 end
