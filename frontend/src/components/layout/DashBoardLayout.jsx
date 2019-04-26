@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { Layout } from 'antd';
+import { Layout, Icon } from 'antd';
 import { Scrollbars } from 'react-custom-scrollbars';
 import Sidebar from '../sidebar/Sidebar';
 import MainContent from '../mainContent/MainContent';
@@ -30,19 +30,19 @@ class DashBoardLayout extends Component {
   render() {
     const { open } = this.state;
     return (
-      <Layout style={{ height: '100vh' }}>
+      <Layout >
         {this.getSideBarMenu(open)}
         <Layout>
-          <Header style={{ background: '#f0f2f500', height: 18, padding: 0, display: 'flex', zIndex: 1 }}>
-            {/* <Icon
+          {/* <Header style={{ background: '#f0f2f500', height: 18, padding: 0, display: 'flex', zIndex: 1 }}>
+            <Icon
               className="trigger"
               type={open ? 'menu-unfold' : 'menu-fold'}
               onClick={this.toggleMenu}
               style={{ paddingTop: 2 }}
-            /> */}
-          </Header>
+            />
+          </Header> */}
           <Content style={{
-            margin: '-24px 0px', padding: '3px 20px', background: '#fff', minHeight: 280, flex: 'none'
+            margin: '20px 0px', padding: '3px 20px', background: '#fff', minHeight: 280, flex: 'none'
           }}
           >
             <Scrollbars style={{ height: '100vh' }}>
