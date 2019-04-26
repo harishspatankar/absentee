@@ -43,14 +43,14 @@ class Sidebar extends Component {
   getMenu = () => {
       const profile = getItem('profile');
       return NAV_MENU.map(({ path, name, icon, permission }) => {
-          if (true) {
-              return (
-                <Menu.Item key={`${path}`}>
+        if (true) {
+        return (
+            <Menu.Item key={`${path}`}>
             <Icon type={icon} />
             <span>{name}</span>
-          </Menu.Item>
-              );
-          }
+            </Menu.Item>
+            );
+        }
       });
   }
 
@@ -58,9 +58,10 @@ class Sidebar extends Component {
     const { open, activeMenu } = this.state;
     return (
       <Sider
-        trigger={null}
-        collapsible
-        collapsed={open}
+        breakpoint="lg"
+        collapsedWidth="0"
+        onBreakpoint={(broken) => { console.log(broken); }}
+        onCollapse={(collapsed, type) => { console.log(collapsed, type); }}
       >
         <div className="sidebar-logo"> Demo App </div>
         <Divider />
