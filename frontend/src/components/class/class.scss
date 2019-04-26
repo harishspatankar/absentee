@@ -1,0 +1,82 @@
+.class-list-container {
+ 
+  
+  .class-card {
+    // box-shadow: 4px 11px 15px 0px #eee;
+    box-shadow: inset 2px -1px 15px 13px #dcfff29e;
+    border: solid 1px #e4d7d7;
+    display: flex;
+    flex-direction: column;
+    margin: 6% 6%;
+    .c-data {
+      display: flex;
+      border-bottom: 1px solid #eee;
+      .std {
+        display: table;
+        width: 68PX;
+        height: 65px;
+        overflow: hidden;
+        color: #c56060;
+        border-right: 1px solid #eee;
+        div {
+          display: table-cell;
+          vertical-align: middle;
+          text-align: center;
+          font-weight: 800;
+          font-size: 25px;
+        }
+      }
+      .div {
+        display: table;
+        width: 65PX;
+        height: 65px;
+        overflow: hidden;
+        border-right: 1px solid #eee;
+        color: green;
+        div {
+          display: table-cell;
+          vertical-align: middle;
+          text-align: center;
+          font-weight: 800;
+          font-size: 25px;
+        }
+      }
+      .details {
+        padding-left: 2%;
+        .data {
+          .label {
+            color: #b5bfc7;
+            padding: 0px 7px;
+          }
+          .data {
+            font-weight: 600;
+          }
+        }
+      }
+    }
+    .c-action {
+      display: flex;
+      justify-content: space-around;
+      padding: 2%;
+      div {
+        cursor: pointer;
+      }
+      div:hover {
+        text-decoration: underline;
+        color: blue;
+      }
+    }
+  }
+
+
+
+}
+
+.class-form {
+  margin: 4% 1%;
+  padding: 3% 3%;
+  border: 1px solid #eee;
+  .ant-col {
+    padding: 1% 0%;
+  }
+}
