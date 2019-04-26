@@ -1,21 +1,21 @@
 class SessionsController < ApplicationController
   # skip_before_action :validate_jwt_token!, only: [:create]
-  # skip_before_action :authenticate!, only: [:create ]
+  skip_before_action :authenticate!, only: [:create ]
 
   def create
     head :bad_request and return false unless params[:user].present?
     user = User.where(mobile_number: params[:user][:mobile_number]).first
     if user && user.valid_password?(params[:user][:password])
+      user.generate_and_set_token
       render json: {messasge: "Signed in successful", user: user.as_json(methods: [:api_key])}
     else
       render json: { message: "Authentication failed" }, status: :unauthorized
     end
   end
 
-
   def destroy
-    # head :bad_request and return false unless params[:user].present?
-    if sign_out current_user
+    current_user.auth_token = nil
+    if current_user.save
       render json: { message: "Signed out successfully." }
     else
       render json: { message: "Failed to sign out." }, status: :unauthorized
