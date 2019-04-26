@@ -43,7 +43,7 @@ class Sidebar extends Component {
   getMenu = () => {
     const profile = getItem('profile');
     return NAV_MENU.map(({ path, name, icon, permission }) => {
-      if (permission.includes(profile)) {
+      if (true) {
         return (
           <Menu.Item key={`${path}`}>
             <Icon type={icon} />
@@ -62,7 +62,7 @@ class Sidebar extends Component {
         collapsible
         collapsed={open}
       >
-        <div className="sidebar-logo"> Demo App </div>
+        <div className="sidebar-logo"> Absentee </div>
         <Divider />
         <Menu
           theme="dark"
