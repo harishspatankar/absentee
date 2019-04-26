@@ -11,6 +11,13 @@ import Teachers from '../Teachers/Teachers';
 import Dashboard from '../Dashboard/Dasgboard';
 
 
+import StudentList from '../student/studentList';
+import StudentForm from '../student/studentForm';
+
+import ClassList from '../class/classList';
+import ClassForm from '../class/classForm';
+
+
 function isAuthenticated() {
   if (true) {
     return true;
@@ -43,8 +50,16 @@ function PrivateRoute({ component: Component, ...rest }) {
 const MainContent = () => (
   <Suspense fallback={<Skeleton active paragraph />}>
     <Switch>
-      <PrivateRoute path={routes.dashboard} component={Dashboard} />
-      <PrivateRoute path={routes.teachers} component={Teachers} />
+      <PrivateRoute exact path={routes.dashboard} component={Dashboard} />
+      <PrivateRoute exact path={routes.teachers} component={Teachers} />
+
+      <PrivateRoute exact path={routes.studentList} component={StudentList} />
+      <PrivateRoute exact path={routes.studentAdd} component={StudentForm} />
+      <PrivateRoute exact path={routes.studentEdit} component={StudentForm} />
+
+      <PrivateRoute exact path={routes.classList} component={ClassList} />
+      <PrivateRoute exact path={routes.classAdd} component={ClassForm} />
+      <PrivateRoute exact path={routes.classEdit} component={ClassForm} />
 
     </Switch>
   </Suspense>
