@@ -25,3 +25,6 @@
 /backend/db/schema.rb
 .DS_Store
 /backend/coverage
+
+
+/frontend/node_modules
