@@ -22,10 +22,7 @@ const getPanelHeader = teacher => (
 const getEditIcon = (teacherId, history) => (
   <div className="teacher-collapse-extra-node">
     <Tooltip title="Edit Teacher">
-      <Icon type="edit" onClick={() => history.push(`/teachers/${teacherId}}/edit`)} />
-    </Tooltip>
-    <Tooltip title="View Teacher">
-      <Icon type="view" onClick={() => history.push(`/teachers/${teacherId}}/view`)} />
+      <Icon type="edit" onClick={() => history.push(`/dashboard/teachers/${teacherId}}/edit`)} />
     </Tooltip>
   </div>
 );
