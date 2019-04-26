@@ -6,8 +6,8 @@ class CreateDeliveryStatuses < ActiveRecord::Migration[5.2]
       t.datetime :sms_delivered_at_primary
       t.datetime :sms_delivered_at_secondary
       t.datetime :emails_sent_at
-      t.integer  :attendence_id
-
+      t.references :attendances, null: false, foreign_key: true, index: true
+      
       t.timestamps
     end
   end
