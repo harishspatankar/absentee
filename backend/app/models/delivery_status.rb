@@ -1,0 +1,2 @@
+class DeliveryStatus < ApplicationRecord
+end
