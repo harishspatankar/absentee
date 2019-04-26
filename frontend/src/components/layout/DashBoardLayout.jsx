@@ -5,7 +5,6 @@ import { Layout } from 'antd';
 import { Scrollbars } from 'react-custom-scrollbars';
 import Sidebar from '../sidebar/Sidebar';
 import MainContent from '../mainContent/MainContent';
-import { setItem } from '../helpers/localStorage';
 import './DashBoardLayout.scss';
 
 const { Header, Content } = Layout;

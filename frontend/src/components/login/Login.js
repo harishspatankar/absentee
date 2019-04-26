@@ -12,6 +12,7 @@ import MobileNumber from '../reusable/PhoneInput';
 import Button from '../reusable/JButton';
 import { getMobileNumber } from '../../utils/commonFunctions';
 import 'react-phone-input-2/dist/style.css'
+import routes from '../../utils/routes';
 
 const initialState = {
   verifyOTP: false,
@@ -31,7 +32,7 @@ class WrappedLogin extends React.Component {
   }
 
   login = (user) => {
-    this.props.history.push('/');
+    this.props.history.push(routes.dashboard);
   }
 
   handleLoginSubmit = () => {
