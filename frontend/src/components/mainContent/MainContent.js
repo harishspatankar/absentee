@@ -7,8 +7,8 @@ import { Skeleton } from 'antd';
 
 import routes from '../../utils/routes';
 import { showWarningNotification } from '../reusable/Notifications';
-import Dahshboard from '../Dashboard/Dasgboard';
 import Teachers from '../Teachers/Teachers';
+import Dashboard from '../Dashboard/Dasgboard';
 
 
 function isAuthenticated() {
@@ -43,9 +43,9 @@ function PrivateRoute({ component: Component, ...rest }) {
 const MainContent = () => (
   <Suspense fallback={<Skeleton active paragraph />}>
     <Switch>
-      <PrivateRoute path={routes.dashboard} component={Dahshboard} />
-      <PrivateRoute exact path={routes.teachers} component={Teachers} />
-     
+      <PrivateRoute path={routes.dashboard} component={Dashboard} />
+      <PrivateRoute path={routes.teachers} component={Teachers} />
+
     </Switch>
   </Suspense>
 );

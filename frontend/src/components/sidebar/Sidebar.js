@@ -43,7 +43,7 @@ class Sidebar extends Component {
   getMenu = () => {
     const profile = getItem('profile');
     return NAV_MENU.map(({ path, name, icon, permission }) => {
-      if (permission.includes(profile)) {
+      if (true) {
         return (
           <Menu.Item key={`${path}`}>
             <Icon type={icon} />

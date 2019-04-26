@@ -8,7 +8,7 @@ const NAV_MENU = [
     permission: ['2', '4', '8'],
   },
   {
-    name: 'Menu 2',
+    name: 'Classes',
     path: routes.dashboard,
     icon: 'fund',
     permission: ['2', '4', '8'],
