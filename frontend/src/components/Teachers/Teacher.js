@@ -22,7 +22,7 @@ const getPanelHeader = teacher => (
 const getEditIcon = (teacherId, history) => (
   <div className="teacher-collapse-extra-node">
     <Tooltip title="Edit Teacher">
-      <Icon type="edit" onClick={() => history.push(`/dashboard/teachers/${teacherId}}/edit`)} />
+      <Icon type="edit" onClick={() => history.push(`/dashboard/teachers/${teacherId}/edit`)} />
     </Tooltip>
   </div>
 );
@@ -67,7 +67,17 @@ const Teachers = (props) => {
             <span>{teacher.email}</span>
             <br />
             <strong>Assigned Classes:</strong>
-            <span>{teacher.assignedClasses}</span>
+            <span>
+              {
+                teacher.classroom && teacher.classroom
+                  .map(currentClass => (
+                    <span>
+                      {currentClass.standard}
+                      {currentClass.divison}
+                      ,&nbsp;
+                    </span>
+                  ))}
+            </span>
             <br />
           </div>
         </Panel>

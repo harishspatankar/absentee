@@ -1,19 +1,15 @@
-import React from 'react';
-import { Empty, Row, Col } from 'antd';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import LocalizedStrings from 'react-localization';
-
+import { Empty, Row, Col } from 'antd';
 import { getClassList } from '../../actions/appActions/classActions';
 import ClassModel from '../../models/AppModel/ClassModel';
-import { strings } from './constants';
+import ClassCard from '../class/ClassCard';
 
-import './class.scss';
-import ClassCard from './ClassCard';
+import '../class/class.scss';
 import routes from '../../utils/routes';
 import KeyListener from '../helpers/KeyListner';
 
-const Strings = new LocalizedStrings({ strings });
-class ClassList extends React.Component {
+class Dashboard extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -26,14 +22,10 @@ class ClassList extends React.Component {
   }
 
   getClassListAPI = () => {
-    console.log('List')
-    getClassList()
-      .then((classes) => {
-        ClassModel.saveAll(classes.map(classss => new ClassModel(classss)));
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    // getClassList()
+    // .then()ta
+    // .catch()
+
     const classes = [
       {
         id: '10-123-123-',
@@ -54,11 +46,11 @@ class ClassList extends React.Component {
         totalStudents: 57,
       },
     ];
-    // ClassModel.saveAll(classes.map(classss => new ClassModel(classss)));
+    ClassModel.saveAll(classes.map(classss => new ClassModel(classss)));
   }
 
-  handleTakePresentyClick = ({ id }) => {
-    this.pushRoute(`${routes.dashboard}/attendance/${id}`);
+  handleTakePresentyClick = ({ standard, division }) => {
+    this.pushRoute(`${routes.dashboard}/present/${standard}/${division}`);
   }
 
   pushRoute = (route) => {
@@ -66,13 +58,8 @@ class ClassList extends React.Component {
     push(route);
   }
 
-  handleViewClassClick = ({ id }) => {
+  handleViewClassClick = (id) => {
     this.pushRoute(`${routes.classList}/${id}`);
-  }
-
-  handleViewStudentList = (id) => {
-    const { history: { push } } = this.props;
-    push(`${routes.classList}/${id}/students`);
   }
 
   getClassCard = (payload) => {
@@ -82,7 +69,6 @@ class ClassList extends React.Component {
           data={data}
           handleViewClick={() => this.handleViewClassClick(data)}
           handlePresenty={() => this.handleTakePresentyClick(data)}
-          handleViewStudentList={() => this.handleViewStudentList(data.id)}
         />
       </Col>
     ));
@@ -92,7 +78,7 @@ class ClassList extends React.Component {
     const { classes } = this.props;
     if (!classes || classes.length === 0) {
       return (
-        <Empty description={Strings.noClassFound} />
+        <Empty description="No classes found"/>
       );
     }
     return (
@@ -118,10 +104,9 @@ class ClassList extends React.Component {
   }
 }
 
-function mapStateToProps() {
+function mapStateToProps(state, ownProps) {
   return {
-    classes: ClassModel.list()[0] ? ClassModel.list().map(item => item[1].props) : []
+    classes: ClassModel.list()[0] ? ClassModel.list().map(item => item[1].props) : [],
   };
 }
-
-export default connect(mapStateToProps)(ClassList);
+export default connect(mapStateToProps)(Dashboard);

@@ -7,11 +7,12 @@ import { Skeleton } from 'antd';
 
 import routes from '../../utils/routes';
 import { showWarningNotification } from '../reusable/Notifications';
-import Dashboard from '../Dashboard/Dasgboard';
+import Dashboard from '../Dashboard/Dashboard';
 
 
-import StudentList from '../student/studentList';
-import StudentForm from '../student/studentForm';
+import StudentForm from '../student/StudentForm';
+
+import StudentListContainer from '../student/StudentListContainer/StudentListContainer';
 
 import ClassList from '../class/classList';
 import ClassForm from '../class/classForm';
@@ -56,7 +57,7 @@ const MainContent = () => (
     <Switch>
       <PrivateRoute exact path={routes.dashboard} component={Dashboard} />
 
-      <PrivateRoute exact path={routes.studentList} component={StudentList} />
+      <PrivateRoute exact path={routes.studentList} component={StudentListContainer} />
       <PrivateRoute exact path={routes.studentAdd} component={StudentForm} />
       <PrivateRoute exact path={routes.studentEdit} component={StudentForm} />
 

@@ -188,5 +188,4 @@ export default class RequestHandler {
     }
     return RequestHandler.put(action, payload, true);
   }
-
 }
