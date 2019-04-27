@@ -17,6 +17,8 @@ import StudentForm from '../student/studentForm';
 import ClassList from '../class/classList';
 import ClassForm from '../class/classForm';
 
+import Presenty from '../presenty/Presenty';
+
 
 function isAuthenticated() {
   if (true) {
@@ -60,6 +62,8 @@ const MainContent = () => (
       <PrivateRoute exact path={routes.classList} component={ClassList} />
       <PrivateRoute exact path={routes.classAdd} component={ClassForm} />
       <PrivateRoute exact path={routes.classEdit} component={ClassForm} />
+
+      <PrivateRoute exact path={routes.presenty} component={Presenty} />
 
     </Switch>
   </Suspense>
