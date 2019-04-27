@@ -7,7 +7,8 @@ const routes = {
   addTeachers: `${dashboard}/teachers/add`,
   editTeacher: `${dashboard}/teachers/:id/edit`,
 
-  studentList: `${dashboard}/students`,
+  student: `${dashboard}/student/`,
+  studentList: `${dashboard}/class/:classID/students`,
   studentAdd: `${dashboard}/student/add`,
   studentEdit: `${dashboard}/student/:studentID`,
 
