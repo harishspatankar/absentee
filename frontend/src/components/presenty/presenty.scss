@@ -1,9 +1,14 @@
 .presenty-container {
+  .aa {
+    justify-content: center;
+    display: flex;
+  }
   .student-list {
     margin: 3% 7%;
     border: 3px solid #bbb;
     padding: 1%;
-    height: 89vh;
+    height: max-content;
+    max-height: 80vh;
     overflow: auto;
     .student {
       display: flex;
