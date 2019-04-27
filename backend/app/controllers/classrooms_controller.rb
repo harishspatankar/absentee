@@ -3,7 +3,7 @@ class ClassroomsController < ApplicationController
   before_action :find_classroom, only: [:show, :edit, :destroy, :update]
 
   def index
-    render json: Classroom.all.as_json
+    render json: current_school.classrooms.as_json(methods: [:total_present_count, :total_students_count, :failed_sms_count])
   end
 
   def create

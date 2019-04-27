@@ -22,6 +22,15 @@ class User < ApplicationRecord
     resource_type == "Teacher"
   end
 
+  def roles
+    ["SuperAdmin"]
+  end
+
+  def school
+    resource.school  if teacher?
+  end
+
+
   def api_key
     JWT.encode({mobile_number: mobile_number}, JWT_SECRET)
   end
