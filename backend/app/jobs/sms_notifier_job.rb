@@ -9,17 +9,26 @@ class SmsNotifierJob < ApplicationJob
 
   rescue_from(Textlocal::DeliveryFailed) do |exception|
     raise "Retry limit reached" and return if retry_limit_exceeded?
-    p retry_job
+    retry_job
   end
 
-  def perform(msg, numbers, attendance)
-    sms = Textlocal::SMS.new(msg, numbers)
-    sms.deliver!
-    if sms.result['status'] == 'failure'
-      raise Textlocal::DeliveryFailed
-      # attendance.update_delivery_status('failed')
-    elsif sms.result['status'] == 'success'
-      attendance.update_delivery_status('success')
+  def perform(student, numbers)
+    todays_attendance = Attendance.where(
+      date: Date.today,
+      student_id: student.id,
+      classroom_id: student.classroom.id
+    ).last
+
+    if todays_attendance.present? && !todays_attendance.is_present
+      msg = "Your child #{student.first_name} is absent today."
+      sms = Textlocal::SMS.new(msg, numbers)
+      sms.deliver!
+      if sms.result['status'] == 'failure'
+        raise Textlocal::DeliveryFailed
+        # attendance.update_delivery_status('failed')
+      elsif sms.result['status'] == 'success'
+        attendance.update_delivery_status('success')
+      end
     end
   end
 end
