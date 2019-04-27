@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
     user = User.where(mobile_number: params[:user][:mobile_number]).first
     if user && user.valid_password?(params[:user][:password])
       user.generate_and_set_token
-      render json: {messasge: "Signed in successful", user: user.as_json(methods: [:api_key])}
+      render json: {messasge: "Signed in successful", user: user.as_json(methods: [:api_key, :roles, :school])}
     else
       render json: { message: "Authentication failed" }, status: :unauthorized
     end
