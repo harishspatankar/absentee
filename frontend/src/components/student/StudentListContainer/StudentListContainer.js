@@ -14,6 +14,7 @@ import {
 import StudentModel from '../../../models/StudentModel/StudentModel';
 import routes from '../../../utils/routes';
 import './StudentListContainer.scss';
+import { getStudents } from '../../../actions/appActions/StudentActions';
 
 class StudentListContainer extends PureComponent {
   state={
@@ -54,26 +55,49 @@ class StudentListContainer extends PureComponent {
     selectedDate: moment(),
   }
 
+  componentDidMount() {
+    const { match: { params: { classID } } } = this.props;
+    this.getStudentsAPI(classID);
+  }
+
+  getStudentsAPI = (classRoomID) => {
+    getStudents(classRoomID).then((teachers) => {
+      StudentModel.saveAll(teachers.map(student => new StudentModel(student)));
+    }).catch((getStudentsError) => {
+      console.error(getStudentsError);
+    });
+  }
+
   getColumns = () => [
     {
       title: 'Roll No.',
-      dataIndex: 'rollNo',
-      key: 'rollNo',
+      dataIndex: 'roll_number',
+      key: 'roll_number',
     },
     {
       title: 'First Name',
-      dataIndex: 'firstName',
+      dataIndex: 'first_name',
       key: 'firstName',
     },
     {
       title: 'Middle Name',
-      dataIndex: 'middleName',
-      key: 'middleName',
+      dataIndex: 'middle_name',
+      key: 'middle_name',
     },
     {
       title: 'Last Name',
-      dataIndex: 'lastName',
-      key: 'lastName',
+      dataIndex: 'last_name',
+      key: 'last_name',
+    },
+    {
+      title: 'Gender',
+      dataIndex: 'gender',
+      key: 'gender',
+    },
+    {
+      title: 'Date of Birth',
+      dataIndex: 'date_of_birth',
+      key: 'date_of_birth',
     },
     {
       title: 'Present/Absent',
@@ -82,6 +106,13 @@ class StudentListContainer extends PureComponent {
       render: isPresent => <Switch disabled unCheckedChildren="Absent" checkedChildren="Present" checked={isPresent} />,
     },
   ]
+
+  /* getStandardAndDivision() {
+    const { students } = this.props;
+    if (students && students.length) {
+      return students[0].
+    }
+  } */
 
   handleDateChange = (value) => {
     this.setState({ selectedDate: value });
@@ -93,8 +124,7 @@ class StudentListContainer extends PureComponent {
       <Row>
         <Col xs={24} sm={12} md={12}>
           <strong>Class:</strong>
-            &nbsp;
-          <span>Class Name</span>
+          {/* <span>{this.getStandardAndDivision()}</span> */}
         </Col>
         <Col xs={24} sm={12} md={12}>
           <strong>Division:</strong>
@@ -112,7 +142,9 @@ class StudentListContainer extends PureComponent {
 
   handleAddStudentClick = () => {
     const { history: { push } } = this.props;
-    push(`${routes.studentAdd}`);
+    const { match: { params: { classID } } } = this.props;
+    const classroom_id = classID;
+    push(`${routes.dashboard}/class/${classroom_id}/students/add`);
   }
 
   getAddStudentIcon = () => (
@@ -129,12 +161,15 @@ class StudentListContainer extends PureComponent {
       event.stopPropagation();
       console.log('Event:', event, '\nRecord:', record, '\nRow Index:', rowIndex);
       const { history: { push } } = this.props;
+      const { match: { params: { classID } } } = this.props;
       push(`${routes.student}${record.id || record.rollNo}`);
+      push(`${routes.dashboard}/class/${classID}/students/${record.id}`);
     },
   })
 
   render() {
-    const { students, selectedDate } = this.state;
+    const { selectedDate } = this.state;
+    const { students } = this.props;
     return (
       <div>
         <Row>

@@ -46,14 +46,14 @@ class Sidebar extends Component {
     document.removeEventListener('keydown', this.handleKeyDown);
   }
 
-  handleKeyDown = ({ key, altKey }) => {
+  /* handleKeyDown = ({ key, altKey }) => {
     if(key.toUpperCase() === "E" && altKey) {
       this.setLanguage(true);
     }
     if (key.toUpperCase() === "M" && altKey) {
       this.setLanguage(false);
     }
-  }
+  } */
 
   handleMenuChange = ({ key }) => {
     if (key.includes('log-out')) {

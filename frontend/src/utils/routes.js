@@ -9,8 +9,8 @@ const routes = {
 
   student: `${dashboard}/student/`,
   studentList: `${dashboard}/class/:classID/students`,
-  studentAdd: `${dashboard}/student/add`,
-  studentEdit: `${dashboard}/student/:studentID`,
+  studentAdd: `${dashboard}/class/:classID/students/add`,
+  studentEdit: `${dashboard}/class/:classID/students/:studentID`,
 
   classList: `${dashboard}/class`,
   classAdd: `${dashboard}/class/add`,

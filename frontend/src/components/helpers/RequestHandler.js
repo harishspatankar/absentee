@@ -7,7 +7,7 @@ const REACT_APP_API_URL = process.env.REACT_APP_API_URL;
 
 export default class RequestHandler {
   static isAuthenticated() {
-    if (getItem('api_key')) {
+    if (!getItem('api_key')) {
       return false;
     }
     return true;
