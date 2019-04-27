@@ -11,6 +11,7 @@ import './class.scss';
 import ClassCard from './ClassCard';
 import routes from '../../utils/routes';
 import KeyListener from '../helpers/KeyListner';
+import JButton from '../reusable/JButton';
 
 const Strings = new LocalizedStrings({ strings });
 class ClassList extends React.Component {
@@ -26,7 +27,6 @@ class ClassList extends React.Component {
   }
 
   getClassListAPI = () => {
-    console.log('List')
     getClassList()
       .then((classes) => {
         ClassModel.saveAll(classes.map(classss => new ClassModel(classss)));
@@ -34,27 +34,6 @@ class ClassList extends React.Component {
       .catch((error) => {
         console.log(error);
       });
-    const classes = [
-      {
-        id: '10-123-123-',
-        standard: 10,
-        division: 'A',
-        totalStudents: 57,
-      },
-      {
-        id: '123-123-123-',
-        standard: 10,
-        division: 'B',
-        totalStudents: 57,
-      },
-      {
-        id: '12-123-123-',
-        standard: 10,
-        division: 'C',
-        totalStudents: 57,
-      },
-    ];
-    // ClassModel.saveAll(classes.map(classss => new ClassModel(classss)));
   }
 
   handleTakePresentyClick = ({ id }) => {
@@ -110,6 +89,13 @@ class ClassList extends React.Component {
   render() {
     return (
       <KeyListener onNew={this.handleAddClick}>
+        <div className="add-class">
+          <JButton
+            name="Add New Class"
+            icon="plus"
+            onClick={this.handleAddClick}
+          />
+        </div>
         <div className="class-list-container">
           {this.getClassList()}
         </div>
