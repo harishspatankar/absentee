@@ -15,7 +15,7 @@ class TeachersController < ApplicationController
   end
 
   def create
-    teacher = Teacher.new(teacher_params)
+    teacher = current_school.teachers.new(teacher_params)
     if teacher.save
       render json: {message: "Teacher created successfully"}, status: 201
     else
@@ -60,6 +60,7 @@ class TeachersController < ApplicationController
   private
 
   def teacher_params
+    params.permit(:name, :email, :mobile, :qualification, :role_id, :gender)
   end
 
   def find_school_teacher
