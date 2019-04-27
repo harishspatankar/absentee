@@ -10,8 +10,13 @@ class Student < ApplicationRecord
   accepts_nested_attributes_for :address
 
   def as_json(options={})
-    json_to_return = super(only: [:roll_number, :first_name, :middle_name,
+    json_to_return = super(only: [:id, :roll_number, :first_name, :middle_name,
       :last_name, :gender, :date_of_birth, :blood_group, :photo])
+    json_to_return["classroom_details"] = get_classroom_details.as_json
     json_to_return
+  end
+
+  def get_classroom_details
+    self.classroom
   end
 end
