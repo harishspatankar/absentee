@@ -2,7 +2,7 @@ import React from 'react';
 import { Skeleton, Row, Col, Divider } from 'antd';
 import moment from 'moment';
 import LocalizedStrings from 'react-localization';
-
+import { getClassAPI, getTeachers, updateClassAPI, addClassAPI } from '../../actions/appActions/classActions';
 import TimePicker from '../reusable/TimePicker';
 import JSelect from '../reusable/Select';
 import JInput from '../reusable/Input';
@@ -12,6 +12,7 @@ import JButton from '../reusable/JButton';
 import routes from '../../utils/routes';
 import KeyListener from '../helpers/KeyListner';
 import { getItem } from '../helpers/localStorage';
+import { showFailureNotification, showSuccessNotification } from '../reusable/Notifications';
 
 const Strings = new LocalizedStrings(strings);
 
@@ -21,18 +22,92 @@ class ClassForm extends React.Component {
     super(props);
     this.state = {
       loading: false,
+      submitLoading: false,
       standard: '5th',
-      startTime: moment("7:30", "HH:MM"),
-      endTime: moment("12:10", "HH:MM a"),
+      startTime: moment(),
+      endTime: moment(),
       teachers: [],
     };
   }
 
   componentDidMount() {
     const { match: { params } } = this.props;
+    this.getTeachersList();
     if (params.classID) {
-      // API CALL
+      this.setState({ loading: true });
+      getClassAPI(params.classID)
+        .then((data) => {
+          this.setState({ loading: false });
+          this.setData(data);
+        })
+        .catch((error) => {
+          this.setState({ loading: false });
+          console.log(error);
+        });
     }
+  }
+
+  getTeachersList = () => {
+    getTeachers()
+      .then((data) => {
+        this.setState({
+          teachers: data,
+          loading: false,
+        });
+      })
+      .catch((error) => {
+        console.log(error)
+      });
+  }
+
+  setData =({ title, standard, divison, start_time, end_time }) => {
+    this.setState({
+      name: title,
+      startTime: start_time,
+      endTime: end_time,
+      standard,
+      division: divison,
+    });
+  }
+
+  updateClass = (payload) => {
+    this.setState({
+      submitLoading: true,
+    });
+    updateClassAPI(payload)
+      .then((data) => {
+        showSuccessNotification('Class Updated successfully.');
+        this.setState({
+          submitLoading: false,
+        });
+        this.handleCancel();
+      })
+      .catch((error) => {
+        this.setState({
+          submitLoading: false,
+        });
+        showFailureNotification('Something went wrong.');
+      });
+  }
+
+  addClass = (payload) => {
+    this.setState({
+      submitLoading: true,
+    });
+    addClassAPI(payload)
+      .then((data) => {
+        showSuccessNotification('Class Added successfully.');
+        this.setState({
+          submitLoading: false,
+        });
+        this.handleCancel();
+      })
+      .catch((error) => {
+        this.setState({
+          submitLoading: false,
+        });
+        showFailureNotification('Something went wrong.');
+      });
   }
 
   getHeader = () => {
@@ -49,6 +124,39 @@ class ClassForm extends React.Component {
     });
   }
 
+  validateForm = () => {
+    const { name, standard, division } = this.state;
+    if (!name || !standard || !division) {
+      showFailureNotification('Invalid form submission');
+      return false;
+    }
+    return true;
+  }
+
+  handleSubmit = () => {
+    const { match: { params }} = this.props;
+    const { name, classTeacher, startTime, endTime, standard, division } = this.state;
+    if (!this.validateForm()) {
+      return false;
+    }
+    const payload = { 
+      title: name,
+      standard,
+      divison: division,
+      start_time: startTime,
+      end_time: endTime,
+      class_teacher_id: classTeacher,
+      school_id: getItem('school_id'),
+    };
+
+    if (params.classID) {
+      payload.school_id = params.classID;
+      this.updateClass(payload);
+      return 0;
+    }
+    this.addClass(payload);
+  }
+
   handleCancel = () => {
     const { history: { push }} = this.props;
     push(routes.classList);
@@ -56,7 +164,7 @@ class ClassForm extends React.Component {
 
   geClassForm = ({
     standard, division, name, startTime, endTime,
-    teachers, classTeacher,
+    teachers, classTeacher, submitLoading,
   }) => (
     <>
       <Divider />
@@ -104,7 +212,8 @@ class ClassForm extends React.Component {
           <TimePicker
             use12Hours
             label={Strings.startTime}
-            defaultValue={moment()}
+            value={moment()}
+            onChange={value => this.handleChange('startTime', value)}
             format="hh:mm a"
           />
         </Col>
@@ -112,7 +221,8 @@ class ClassForm extends React.Component {
           <TimePicker
             use12Hours
             label={Strings.endTime}
-            defaultValue={moment()}
+            value={moment()}
+            onChange={value => this.handleChange('endTime', value)}
             format="hh:mm a"
           />
         </Col>
@@ -123,6 +233,7 @@ class ClassForm extends React.Component {
           <JButton
             name={`${this.getHeader()}`}
             onClick={this.handleSubmit}
+            loading={submitLoading}
             type="primary"
           />
         </Col>

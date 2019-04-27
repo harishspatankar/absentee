@@ -57,8 +57,8 @@ class ClassList extends React.Component {
     // ClassModel.saveAll(classes.map(classss => new ClassModel(classss)));
   }
 
-  handleTakePresentyClick = ({ standard, division }) => {
-    this.pushRoute(`${routes.dashboard}/present/${standard}/${division}`);
+  handleTakePresentyClick = ({ id }) => {
+    this.pushRoute(`${routes.dashboard}/attendance/${id}`);
   }
 
   pushRoute = (route) => {
