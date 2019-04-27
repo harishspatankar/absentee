@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import {
   Form,
   Row,
@@ -13,6 +14,7 @@ import {
 import './StudentForm.scss';
 import { DATE_FORMAT } from '../../utils/constant';
 import routes from '../../utils/routes';
+import { createStudent, updateStudent, getStudent } from '../../actions/appActions/StudentActions';
 
 const Option = Select.Option;
 const address = {
@@ -28,11 +30,77 @@ const address = {
 class StudentForm extends PureComponent {
   handleSubmit = (e) => {
     e.preventDefault();
+    const { match: { params: { classID } } } = this.props;
     const { form: { validateFields } } = this.props;
     validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
+        const student = {
+          ...values,
+          gender: values.gender ? 'Male' : 'Female',
+          classroom_id: classID,
+        };
+        this.addStudentAPI(student);
       }
+    });
+  }
+
+  componentDidMount() {
+    const { studentID, classID } = this.props.match.params;
+    console.log('Class:', classID);
+    if (this.isUpdating()) {
+      getStudent({ studentID, classRommID: classID }).then((student) => {
+        this.setInitialValues(student);
+      }).catch();
+    }
+  }
+
+  setInitialValues = (student) => {
+    const { form } = this.props;
+    form.setFieldsValue({
+      first_name: student.first_name,
+      middle_name: student.middle_name,
+      last_name: student.last_name,
+      gender: student.gender === 'Male',
+      date_of_birth: moment(student.date_of_birth),
+      blood_group: student.blood_group,
+      roll_number: student.roll_number,
+      /* address: [{
+        address_type: student.address.address_type,
+        line_1: student.address.line_1,
+        line_2: student.address.line_2,
+        city: student.address.city,
+        state: student.address.state,
+        pincode: student.address.pincode,
+        landmark: student.address.landmark,
+      }], */
+    });
+  }
+
+  addStudentAPI(student) {
+    const { studentID, classID } = this.props.match.params;
+    createStudent(student).then((response) => {
+      console.log('Response:', response);
+      const { history: { push } } = this.props;
+      push(`${routes.dashboard}/class/${classID}/students/${studentID}`);
+    }).catch((error) => {
+      console.error('Error:', error);
+    });
+  }
+
+  updateStudentAPI(student) {
+    const { studentID, classID } = this.props.match.params;
+    const payload = {
+      ...student,
+      studentID,
+      classroom_id: classID,
+    };
+    updateStudent(payload).then((response) => {
+      console.log('Response:', response);
+      const { history: { push } } = this.props;
+      push(`${routes.dashboard}/class/${classID}/students/${studentID}`);
+    }).catch((error) => {
+      console.error('Error:', error);
     });
   }
 
@@ -56,17 +124,21 @@ class StudentForm extends PureComponent {
     push(`${routes.dashboard}`);
   }
 
+  isUpdating = () => {
+    return this.props.match.params.studentID;
+  }
+
   render() {
     const { form: { getFieldDecorator } } = this.props;
     return (
       <div className="form-wrapper">
-        <h2>Add/Edit Student</h2>
+        <h2>{this.isUpdating ? 'Edit' : 'Add' }Student</h2>
         <Form layout="horizontal" onSubmit={this.handleSubmit}>
           <Row gutter={6}>
             <Col className="form-component" xs={24} sm={12} md={8} lg={8}>
               <Form.Item label="First Name">
                 {
-                  getFieldDecorator('firstName', {
+                  getFieldDecorator('first_name', {
                     rules: [{
                       required: true, message: 'First name is required',
                     }],
@@ -79,7 +151,7 @@ class StudentForm extends PureComponent {
             <Col xs={24} sm={12} md={8} lg={8}>
               <Form.Item label="Middle Name">
                 {
-                  getFieldDecorator('middleName', {
+                  getFieldDecorator('middle_name', {
                     rules: [{
                       required: true, message: 'Middle name is required',
                     }],
@@ -92,7 +164,7 @@ class StudentForm extends PureComponent {
             <Col xs={24} sm={12} md={8} lg={8}>
               <Form.Item label="Last Name">
                 {
-                  getFieldDecorator('lastName', {
+                  getFieldDecorator('last_name', {
                     rules: [{
                       required: true, message: 'Last name is required',
                     }],
@@ -120,7 +192,7 @@ class StudentForm extends PureComponent {
             <Col xs={24} sm={12} md={6} lg={6}>
               <Form.Item label="Roll Number">
                 {
-                  getFieldDecorator('rollNo', {
+                  getFieldDecorator('roll_number', {
                     rules: [{
                       required: true, message: 'Roll Number is required',
                     }],
@@ -133,7 +205,7 @@ class StudentForm extends PureComponent {
             <Col xs={24} sm={12} md={4} lg={4}>
               <Form.Item label="Date of Birth">
                 {
-                  getFieldDecorator('dob', {
+                  getFieldDecorator('date_of_birth', {
                     rules: [{
                       required: true, message: 'Date of birth is required',
                     }],
@@ -146,7 +218,7 @@ class StudentForm extends PureComponent {
             <Col xs={24} sm={12} md={4} lg={4}>
               <Form.Item label="Blood Group">
                 {
-                  getFieldDecorator('bg', {
+                  getFieldDecorator('blood_group', {
                     rules: [],
                   })(
                     <Select placeholder="Select blood group">

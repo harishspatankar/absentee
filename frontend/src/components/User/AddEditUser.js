@@ -39,7 +39,7 @@ class AddEditUserForm extends React.PureComponent {
       qualification: teacher.qualification,
       name: teacher.name,
       role: teacher.role.title,
-      address: [{
+      /* address: [{
         address_type: teacher.address.address_type,
         line_1: teacher.address_type.line_1,
         line_2: teacher.address_type.line_2,
@@ -47,7 +47,7 @@ class AddEditUserForm extends React.PureComponent {
         state: teacher.address_type.state,
         pincode: teacher.address_type.pincode,
         landmark: teacher.address_type.landmark,
-      }],
+      }], */
     });
   }
 
