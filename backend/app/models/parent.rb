@@ -4,6 +4,7 @@ class Parent < ApplicationRecord
 
   has_many :students
   has_many :addresses, as: :resource
+  has_and_belongs_to_many :students, join_table: 'parent_students'
 
   def as_json(options={})
     json_to_return = super(only: [:id, :father_name, :mother_name, :guardian_name,
