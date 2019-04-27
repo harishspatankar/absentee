@@ -8,6 +8,8 @@ class User < ApplicationRecord
   validates :mobile_number, presence: true
   validates :mobile_number, format: { with: /\A[6789]\d{9}\z/, message: "Not a valid mobile no" }
 
+  belongs_to :resource, polymorphic: true
+
   def email_required?
     false
   end
