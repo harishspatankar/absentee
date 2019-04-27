@@ -19,10 +19,11 @@ import Teachers from '../Teachers/TeacherContainer/TeacherContainer';
 import addUser from '../User/AddEditUser';
 
 import Presenty from '../presenty/Presenty';
+import { getItem } from '../helpers/localStorage';
 
 
 function isAuthenticated() {
-  if (true) {
+  if (getItem('api_key')) {
     return true;
   }
   return false;

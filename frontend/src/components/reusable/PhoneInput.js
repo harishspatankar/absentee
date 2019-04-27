@@ -7,15 +7,23 @@ function changeState({ number, country }, setState, setNumberInProps = () => {})
   setNumberInProps({ number, country });
   setState(number);
 }
-const MobileNumber = ({ getNumber }) => {
+const MobileNumber = ({label, labelClass, required, getNumber }) => {
   const [value, setState] = useState();
   return (
-    <ReactPhoneInput
-      defaultCountry="in"
-      enableSearchField
-      value={value}
-      onChange={(number, country) => changeState({ number, country }, setState, getNumber)}
-    />
+    <div className="labeled-input">
+      <span
+        className={labelClass} 
+      >
+        {label}
+        {required && <span style={{ color: 'red' }}> &nbsp;*</span>}
+      </span>
+      <ReactPhoneInput
+        defaultCountry="in"
+        enableSearchField
+        value={value}
+        onChange={(number, country) => changeState({ number, country }, setState, getNumber)}
+      />
+    </div>
   );
 };
 
