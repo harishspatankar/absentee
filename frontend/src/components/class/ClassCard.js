@@ -2,14 +2,17 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable react/prefer-stateless-function */
 import React from 'react';
-import JButton from '../reusable/JButton';
-import { Divider } from 'antd';
+import { getItem } from '../helpers/localStorage';
+import LocalizedStrings from 'react-localization';
+import { strings } from './constants.js';
+const Strings = new LocalizedStrings(strings);
 
 class ClassCard extends React.Component {
   render() {
+    Strings.setLanguage(getItem('language'));
     const { data : {
       standard,
-      division,
+      divison,
       id,
       total_students_count,
       total_present_count,
@@ -23,32 +26,32 @@ class ClassCard extends React.Component {
             <div>{standard}</div>
           </div>
           <div className="div">
-            <div>{division}</div>
+            <div>{divison}</div>
           </div>
           <div className="details">
             <div className="data">
-              <span className="label">Total</span>
+              <span className="label">{Strings.total}</span>
               <span className="data">{total_students_count}</span>
             </div>
             <div className="data">
-              <span className="label">Present</span>
+              <span className="label">{Strings.present}</span>
               <span className="data">{total_present_count}</span>
             </div>
             <div className="data">
-              <span className="label">Faild</span>
+              <span className="label">{Strings.failed}</span>
               <span className="data">{failed_sms_count}</span>
             </div>
           </div>
         </div>
         <div className="c-action">
           <div className="present" onClick={this.props.handlePresenty} role="button">
-            Take Presenty
+            {Strings.presenty}
           </div>
           <div className="view" onClick={this.props.handleViewClick} role="button">
-            Edit Details
+            {Strings.editDetails}
           </div>
           <div className="view" onClick={this.props.handleViewClick} role="button">
-            View Students
+            {Strings.viewStudent}
           </div>
         </div>
       </div>
