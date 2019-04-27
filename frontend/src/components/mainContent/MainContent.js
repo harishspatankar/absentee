@@ -10,8 +10,7 @@ import { showWarningNotification } from '../reusable/Notifications';
 import Dashboard from '../Dashboard/Dasgboard';
 
 
-import StudentList from '../student/studentList';
-import StudentForm from '../student/studentForm';
+import StudentForm from '../student/StudentForm';
 
 import StudentListContainer from '../student/StudentListContainer/StudentListContainer';
 

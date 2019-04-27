@@ -4,6 +4,7 @@ export const SAVE_ALL_INSTANCES = 'SAVE_ALL_INSTANCES';
 export const SAVE_INSTANCE = 'SAVE_INSTANCE';
 export const SAVE_LAST = 'SAVE_LAST';
 export const INVALID_INSTANCE_CANNOT_SAVE = 'INVALID_INSTANCE_CANNOT_SAVE';
+export const DATE_FORMAT='DD-MM-YYYY';
 
 export const HTTP_STANDARD_ERRORS = {
   400: 'Bad request',
