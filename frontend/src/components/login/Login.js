@@ -40,7 +40,7 @@ class WrappedLogin extends React.Component {
     loginAPI(payload)
       .then((data) => {
         this.setState({ loadingLogin: false });
-        const { user: { api_key, auth_token, mobile_number, email, name, resource_type, roles, school } } = data;
+        const { user: { api_key, auth_token, mobile_number, email, name, resource_type, resource_id, roles, school } } = data;
         clearStorage();
         setItem('api_key', api_key);
         setItem('auth_token', auth_token);
@@ -52,6 +52,7 @@ class WrappedLogin extends React.Component {
         setItem('roles', roles);
         setItem('school_id', school.id);
         setItem('school_name', school.name);
+        setItem('resource_id', resource_id)
         
         setItem('language', 'EN');
         this.props.history.push(routes.dashboard);

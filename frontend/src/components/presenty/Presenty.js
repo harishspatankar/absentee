@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import { Skeleton, Row, Col, Switch, Empty } from 'antd';
-import { getStudents } from '../../actions/appActions/classActions';
+import { getStudents, markAttendanceAPI } from '../../actions/appActions/classActions';
 import JButton from '../reusable/JButton';
 import './presenty.scss';
 import routes from '../../utils/routes';
+import { showSuccessNotification } from '../reusable/Notifications';
 
-const Student = ({ data: { first_name, last_name, middle_name, roll_number, isPresent }, handleChange, index, activeIndex}) => (
+const Student = ({ data: { first_name, last_name, middle_name, roll_number, is_present }, handleChange, index, activeIndex}) => (
   <div className={`student ${activeIndex === index ? 'active' : ''}` } >
     <div className="roll">{roll_number}</div>
     <div className="name">{`${last_name} ${first_name} ${middle_name}`}</div>
     <div className="switch">
-      <Switch checkedChildren="P" unCheckedChildren="A" checked={isPresent} onChange={handleChange} />
+      <Switch checkedChildren="P" unCheckedChildren="A" checked={is_present} onChange={handleChange} />
     </div>
   </div>
 );
@@ -21,14 +22,7 @@ class Presenty extends Component {
     this.state = {
       loading: false,
       activeIndex: 0,
-      students: [
-        { name: 'More Suhas Rajendra', roll: 11, isPresent: true },
-        { name: 'More Supriya Suhas', roll: 12, isPresent: true },
-        { name: 'More Prajakat Rajendra', roll: 13, isPresent: true },
-        { name: 'More Suhas Rajendra', roll: 14, isPresent: true },
-        { name: 'More Supriya Suhas', roll: 15, isPresent: true },
-        { name: 'More Prajakat Rajendra', roll: 16, isPresent: true },
-      ],
+      students: [],
     };
   }
 
@@ -57,6 +51,16 @@ class Presenty extends Component {
 
   componentWillUnmount() {
     document.removeEventListener("keydown", this.handleKeyDown)
+  }
+
+  markAttendance  = (studeID, status) => {
+    markAttendanceAPI(studeID, status)
+    .then((data) => {
+      showSuccessNotification('Updated successfully.');
+    })
+    .catch((error) => {
+      console.log(error);
+    })
   }
 
   handleKeyDown = (event) => {
@@ -116,11 +120,13 @@ class Presenty extends Component {
 
   handleChange = (index, value, studeID) => {
     const { students } = this.state;
+    const { match : { params }} = this.props;
     console.log(studeID);
-    students[index].isPresent = value;
+    students[index].is_present = value;
     this.setState({
       students,
     });
+    this.markAttendance(studeID, value);
   }
 
   getDetails = () => {
@@ -132,6 +138,10 @@ class Presenty extends Component {
 
   handleCancel = () => {
     this.props.history.push(routes.classList);
+  }
+
+  handleMarkDone = () => {
+    
   }
 
   render() {
@@ -155,6 +165,10 @@ class Presenty extends Component {
           <JButton
             name="Cancle"
             onClick={this.handleCancel}
+          />
+          <JButton
+            name="Mark Done"
+            onClick={this.handleMarkDone}
           />
         </div>
       </div>
