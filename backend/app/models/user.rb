@@ -10,6 +10,9 @@ class User < ApplicationRecord
 
   scope :syste_admin_user,  -> { where(role_id: Role.where(title: 'Super Admin').first.id).first }
 
+  belongs_to :resource, polymorphic: true, required: false
+
+
   def email_required?
     false
   end
@@ -17,6 +20,19 @@ class User < ApplicationRecord
   def email_changed?
     false
   end
+
+  def teacher?
+    resource_type == "Teacher"
+  end
+
+  def roles
+    ["SuperAdmin"]
+  end
+
+  def school
+    resource.school  if teacher?
+  end
+
 
   def api_key
     JWT.encode({mobile_number: mobile_number}, JWT_SECRET)
