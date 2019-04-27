@@ -43,6 +43,6 @@ module Absentee
     #config.active_job.queue_adapter = :sidekiq
 
     config.autoload_paths += %W(#{config.root}/app/observers)
-    config.active_record.observers = [:upload_resource_observer]
+    config.active_record.observers = :upload_resource_observer, :teacher_observer
   end
 end

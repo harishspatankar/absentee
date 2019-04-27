@@ -67,10 +67,10 @@ class UploadProcessJob < ApplicationJob
       ['Name']
     when 'schools'
       ['Name', 'Contact Numbers', 'Email', 'Helpline Contact']
+    when 'teachers'
+      ['Name', 'Email', 'Mobile', 'Gender', 'Qualification', 'Role', 'School Name']
     when 'classrooms'
       ['Title', 'Standard', 'Divison', 'Start Time', 'End Time', 'Class Teacher Contact']
-    when 'teachers'
-      ['Name', 'Email', 'Mobile', 'Gender', 'Qualification', 'Role']
     end
     headers
   end
@@ -105,23 +105,32 @@ class UploadProcessJob < ApplicationJob
     write_log(csv_data)
   end
 
+  def process_schools_upload
+    csv_data.each_with_index do |row, index|
+      school = School.new(name: row['Name'], contact_numbers: row['Contact Numbers'],
+        email: row['Email'], helpline_contact: row['Helpline Contact'])
+      row << {'Status' => school.save ? 'Success' : school.errors.messages}
+    end
+    write_log(csv_data)
+  end
+
   def process_teachers_upload
     csv_data.each_with_index do |row, index|
       role    = Role.where(title: row['Role']).first
+      school  = School.where(name: row['School Name']).first
       msg     = ""
-      if role
-        teacher = Teacher.new(
-          name:    row['Name'],
-          email:   row['Email'],
-          mobile:  row['Mobile'],
-          gender:  row['Gender'],
-          role_id: role,
-          qualification: row['Qualification']
-        )
+      teacher = Teacher.new(name: row['Name'], email: row['Email'],
+        mobile:  row['Mobile'], gender: row['Gender'], role_id: role,
+        qualification: row['Qualification'], school_id: school.id
+      )
+      if role.blank? || school.blank?
+        msg += " Invalid Role provided" if role.blank?
+        msg += " Invalid School Name provided" if school.blank?
       else
-        msg += "Invalid Role provided"
+        teacher.school_id = school.id if school
+        teacher.role_id   = role.id if role
       end
-      row << {'Status' => msg.blank? ? (teacher.save ? 'Success' : teacher.errors.messages) : msg}
+      row << {'Status' => msg.blank? ? (teacher.save! ? 'Success' : teacher.errors.messages) : msg}
     end
     write_log(csv_data)
   end
