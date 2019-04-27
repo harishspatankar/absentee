@@ -1,6 +1,6 @@
 class TeachersController < ApplicationController
 
-  before_action :find_school_teachers, only: [:show, :edit, :destroy, :update, :mark_attendance]
+  before_action :find_school_teacher, only: [:show, :edit, :destroy, :update, :mark_attendance]
 
   def index
     if params[:role_id]
@@ -50,7 +50,7 @@ class TeachersController < ApplicationController
       date: Date.today
     )
 
-    if attendance.update_attribute(is_present: params[:is_present])
+    if attendance.update_attributes(is_present: params[:is_present])
       render json: {}, status: 200
     else
       render json: {message: "Failed to mark attendance for student #{student.first_name}"}, status: 422
