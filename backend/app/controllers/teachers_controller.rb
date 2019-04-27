@@ -61,7 +61,17 @@ class TeachersController < ApplicationController
   private
 
   def teacher_params
-    params.permit(:name, :email, :mobile, :qualification, :role_id, :gender)
+    params.permit(
+      :name,
+      :email,
+      :mobile,
+      :qualification,
+      :role_id, :gender,
+      :address_attributes =>
+      [
+        :line_1, :line_2, :area, :landmark, :city, :state, :pincode, :address_type
+      ]
+    )
   end
 
   def find_school_teacher

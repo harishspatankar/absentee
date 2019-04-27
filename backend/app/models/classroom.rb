@@ -4,6 +4,7 @@ class Classroom < ApplicationRecord
 
   has_many :students
   has_many   :attendances
+  has_and_belongs_to_many :teachers, join_table: 'classroom_teachers'
 
   def start_time_cannot_be_greater_than_end_time
     if start_time >= end_time

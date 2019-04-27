@@ -1,5 +1,4 @@
 class StudentsController < ApplicationController
-  # before_action :authenticate_user!
   before_action :set_class
   before_action :find_class_student, only: [:show, :edit, :destroy, :update]
 
@@ -41,7 +40,19 @@ class StudentsController < ApplicationController
   private
 
   def student_params
-    params.permit(:roll_number, :first_name, :middle_name, :last_name, :gender, :date_of_birth, :blood_group)
+    params.permit(
+      :roll_number,
+      :first_name,
+      :middle_name,
+      :last_name,
+      :gender,
+      :date_of_birth,
+      :blood_group,
+      :address_attributes =>
+      [
+        :line_1, :line_2, :area, :landmark, :city, :state, :pincode, :address_type
+      ]
+    )
   end
 
   def set_class
