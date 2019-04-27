@@ -5,11 +5,11 @@ import Teacher from '../Teacher';
 import TeacherModel from '../../../models/AppModel/TeacherModel';
 import './TeacherContainer.scss';
 import { getTeachers } from '../../../actions/appActions/TeacherActions';
+import JButton from '../../reusable/JButton';
+import routes from '../../../utils/routes';
+import KeyListener from '../../helpers/KeyListner';
 
 class TeacherContainer extends PureComponent {
-  /* constructor(props) {
-    super(props);
-  } */
 
   componentDidMount() {
     this.getTeachersAPI();
@@ -23,14 +23,28 @@ class TeacherContainer extends PureComponent {
     });
   }
 
+  handleAddTeacher = () => {
+    const { history: { push }} = this.props;
+    push(routes.addTeachers);
+  }
+
   getTeachers = () => this.props.teachers
     .map(teacher => <Teacher key={teacher.id} teacher={teacher} {...this.props} />);
 
   render() {
     return (
-      <Row className="teachers-wrapper">
-        {this.getTeachers()}
-      </Row>
+      <KeyListener onNew={this.handleAddTeacher}>
+        <div className="add-class">
+          <JButton
+            name="Add New Teacher"
+            icon="plus"
+            onClick={this.handleAddTeacher}
+          />
+        </div>
+        <Row className="teachers-wrapper">
+          {this.getTeachers()}
+        </Row>
+      </KeyListener>
     );
   }
 }
