@@ -1,4 +1,5 @@
 import RequestHandler from '../../components/helpers/RequestHandler';
+import { getItem } from '../../components/helpers/localStorage';
 
 export function getClassList() {
   return RequestHandler.get('/classrooms');
@@ -24,6 +25,7 @@ export function getStudents(classID) {
   return RequestHandler.get(`/classrooms/${classID}/students`);
 }
 
-export function markAttendeance(studentID) {
-  return RequestHandler.get(`/classrooms/${classID}/students`);
+export function markAttendanceAPI(studentID, status) {
+  const teacherID = getItem('resource_id');
+  return RequestHandler.put(`/teachers/${teacherID}/students/${studentID}/mark_attendance?is_present=${status}`);
 }
