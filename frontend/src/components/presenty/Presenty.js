@@ -31,8 +31,12 @@ class Presenty extends Component {
 
   componentDidMount() {
     const { match : { params : { division, standard }}} = this.props;
-    document.addEventListener("keydown", this.handleKeyDown)
+    document.addEventListener("keydown", this.handleKeyDown);
     // API
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this.handleKeyDown)
   }
 
   handleKeyDown = (event) => {
@@ -78,6 +82,7 @@ class Presenty extends Component {
           handleChange={checked => this.handleChange(index, checked)}
           index={index}
           activeIndex={this.state.activeIndex}
+          key={student+index}
         />
       );
     });

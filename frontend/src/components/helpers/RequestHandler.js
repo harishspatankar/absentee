@@ -3,11 +3,11 @@ import { showFailureNotification, showNotification } from '../reusable/Notificat
 import { getItem, setItem } from './localStorage';
 import routes from '../../utils/routes';
 
-const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL ? process.env.REACT_APP_BASE_URL : `${window.location.origin}/questionbank`;
+const REACT_APP_API_URL = process.env.REACT_APP_API_URL;
 
 export default class RequestHandler {
   static isAuthenticated() {
-    if (true) {
+    if (getItem('api_key')) {
       return false;
     }
     return true;
@@ -20,7 +20,8 @@ export default class RequestHandler {
       headers: {
         Accept: 'application/vnd.questionbank.v1',
         'Content-Type': 'application/json',
-        // Authorization: getItem('token'),
+        'x-api-key': getItem('api_key'),
+        Authorization: getItem('auth_token'),
       },
     };
     if (!isFile) {
@@ -39,7 +40,8 @@ export default class RequestHandler {
   static isSuccess(payload, status) {
     if (status === 401) {
       showNotification('Unauthorised access.');
-      setItem('token', '');
+      setItem('api_key', '');
+      setItem('auth_token', '');
       window.location.href = routes.root;
     }
     if (!(status === 200 || status === 201)) {
@@ -51,13 +53,13 @@ export default class RequestHandler {
 
   // HTTP Method get
   static get(action, params = '') {
-    if (!RequestHandler.isAuthenticated()) {
-      return new Promise((resolve, reject) => {
+    // if (!RequestHandler.isAuthenticated()) {
+    //   return new Promise((resolve, reject) => {
 
-      });
-    }
+    //   });
+    // }
     return new Promise((resolve, reject) => {
-      fetch(`${REACT_APP_BASE_URL}${action}${params}`, RequestHandler.getHeader('get'))
+      fetch(`${REACT_APP_API_URL}${action}${params}`, RequestHandler.getHeader('get'))
         .then(response => ({ promise: response.json(), status: response.status }))
         .then(({ promise, status }) => {
           promise.then((payload) => {
@@ -82,7 +84,26 @@ export default class RequestHandler {
       });
     }
     return new Promise((resolve, reject) => {
-      fetch(`${REACT_APP_BASE_URL}${action}`, RequestHandler.getHeader('post', data, isFile))
+      fetch(`${REACT_APP_API_URL}${action}`, RequestHandler.getHeader('post', data, isFile))
+        .then(response => ({ promise: response.json(), status: response.status }))
+        .then(({ promise, status }) => {
+          promise.then((payload) => {
+            resolve(RequestHandler.isSuccess(payload, status));
+          })
+            .catch((innerError) => {
+              reject(innerError);
+            });
+        })
+        .catch((error) => {
+          console.log(error);
+          reject(error);
+        });
+    });
+  }
+
+  static login(action, data, isFile = false) {
+    return new Promise((resolve, reject) => {
+      fetch(`${REACT_APP_API_URL}${action}`, RequestHandler.getHeader('post', data, isFile))
         .then(response => ({ promise: response.json(), status: response.status }))
         .then(({ promise, status }) => {
           promise.then((payload) => {
@@ -107,7 +128,7 @@ export default class RequestHandler {
       });
     }
     return new Promise((resolve, reject) => {
-      fetch(`${REACT_APP_BASE_URL}${action}`, RequestHandler.getHeader('put', data, isFile))
+      fetch(`${REACT_APP_API_URL}${action}`, RequestHandler.getHeader('put', data, isFile))
         .then(response => ({ promise: response.json(), status: response.status }))
         .then(({ promise, status }) => {
           promise.then((payload) => {
@@ -131,7 +152,7 @@ export default class RequestHandler {
       });
     }
     return new Promise((resolve, reject) => {
-      fetch(`${REACT_APP_BASE_URL}${action}`, RequestHandler.getHeader('delete', {}))
+      fetch(`${REACT_APP_API_URL}${action}`, RequestHandler.getHeader('delete', {}))
         .then(response => ({ promise: response.json(), status: response.status }))
         .then(({ promise, status }) => {
           promise.then((payload) => {

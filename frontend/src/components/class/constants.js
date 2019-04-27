@@ -17,3 +17,35 @@ export const CLASS = [
   { name: 'Third Year', value: 'Third' },
   { name: 'Forth year', value: 'Forth' },
 ];
+
+export const strings = {
+  EN: {
+    noClassFound: 'No classes found',
+    update: 'Update',
+    add: 'Add',
+    addDivision: 'Add Division',
+    name: 'Name',
+    standard: 'Standard',
+    division: 'Division',
+    classTeacher: 'Class Teacher',
+    startTime: 'Start Time',
+    endTime: 'End Time',
+    cancel: 'Cancel',
+    class: 'Clasas',
+
+  },
+  MR: {
+    noClassFound: 'वर्ग मिळाला नाही',
+    update: 'बदला',
+    add: 'समाविष्ट ',
+    addDivision: 'तुकडी समाविष्ट करा ',
+    name: 'नाव ',
+    standard: 'इयत्ता ',
+    division: 'तुकडी',
+    classTeacher: 'वर्गशिक्षक',
+    startTime: 'प्रारंभ वेळ',
+    endTime: 'समाप्त वेळ',
+    cancel: 'रद्द करा ',
+    class: 'वर्ग',
+  },
+};
