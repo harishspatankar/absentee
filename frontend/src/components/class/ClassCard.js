@@ -10,14 +10,17 @@ class ClassCard extends React.Component {
     const { data : {
       standard,
       division,
-      id
+      id,
+      total_students_count,
+      total_present_count,
+      failed_sms_count
     } } = this.props;
 
     return (
       <div className="class-card">
         <div className="c-data">
           <div className="std">
-            <div>{standard}<sup>th</sup></div>
+            <div>{standard}</div>
           </div>
           <div className="div">
             <div>{division}</div>
@@ -25,15 +28,15 @@ class ClassCard extends React.Component {
           <div className="details">
             <div className="data">
               <span className="label">Total</span>
-              <span className="data">100</span>
+              <span className="data">{total_students_count}</span>
             </div>
             <div className="data">
-              <span className="label">Attend</span>
-              <span className="data">98</span>
+              <span className="label">Present</span>
+              <span className="data">{total_present_count}</span>
             </div>
             <div className="data">
               <span className="label">Faild</span>
-              <span className="data">2</span>
+              <span className="data">{failed_sms_count}</span>
             </div>
           </div>
         </div>

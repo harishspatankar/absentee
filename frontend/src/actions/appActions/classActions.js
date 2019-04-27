@@ -1,7 +1,7 @@
 import RequestHandler from '../../components/helpers/RequestHandler';
 
 export function getClassList() {
-  return RequestHandler.get('/login');
+  return RequestHandler.get('/classrooms');
 }
 
 export function getClass(classID) {
