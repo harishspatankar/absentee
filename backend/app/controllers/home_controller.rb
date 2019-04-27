@@ -10,9 +10,10 @@ class HomeController < ApplicationController
   permitted: false>
 =end
   def sms_response
-    binding.pry
-    content = params[:content]
-    reporter = User.where(mobile_number: params[:sender]).first
+    content   = params[:content]
+    sender_no = params[:sender_no]
+    sender_no = sender_no.length == 12 ? sender_no[2..-1] : sender_no
+    reporter  = User.where(mobile_number: sender_no).first
     if reporter && reporter.resource_type == 'Teacher'
       status  = content.split(' ')[1..-1]
       status.each do |stats|
@@ -33,15 +34,14 @@ class HomeController < ApplicationController
         classroom_id: student.classroom_id,
         date:         Date.today
       ).first
-      if (attendance && !attendance.is_present) || attendance.blank?
-        attendance = Attendance.new(
+      if (attendance && attendance.is_present) || attendance.blank?
+        attendance = Attendance.create(
           teacher_id:   reporter.id,
           student_id:   student.id,
           classroom_id: student.classroom_id,
           date:         Date.today
           is_present:   presence_status == 'Present'
         )
-        attendance.save
 
         SmsNotifierJob.set(wait: 3).perform_later(student, student.parent.pluck(:primary_contact).last)
       end
