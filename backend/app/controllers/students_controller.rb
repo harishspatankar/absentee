@@ -40,19 +40,7 @@ class StudentsController < ApplicationController
   private
 
   def student_params
-    params.permit(
-      :roll_number,
-      :first_name,
-      :middle_name,
-      :last_name,
-      :gender,
-      :date_of_birth,
-      :blood_group,
-      :address_attributes =>
-      [
-        :line_1, :line_2, :area, :landmark, :city, :state, :pincode, :address_type
-      ]
-    )
+    params.require(:student).permit!
   end
 
   def set_class

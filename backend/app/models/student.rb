@@ -7,7 +7,7 @@ class Student < ApplicationRecord
   has_many :attendances
   has_one :address, as: :resource
 
-  accepts_nested_attributes_for :address
+  # accepts_nested_attributes_for :address
 
   def as_json(options={})
     json_to_return = super(only: [:id, :roll_number, :first_name, :middle_name,
