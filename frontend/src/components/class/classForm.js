@@ -1,14 +1,20 @@
 import React from 'react';
 import { Skeleton, Row, Col, Divider } from 'antd';
 import moment from 'moment';
+import LocalizedStrings from 'react-localization';
+
 import TimePicker from '../reusable/TimePicker';
 import JSelect from '../reusable/Select';
 import JInput from '../reusable/Input';
 import './class.scss';
-import { CLASS } from './constants';
+import { CLASS, strings } from './constants';
 import JButton from '../reusable/JButton';
 import routes from '../../utils/routes';
 import KeyListener from '../helpers/KeyListner';
+import { getItem } from '../helpers/localStorage';
+
+const Strings = new LocalizedStrings(strings);
+
 
 class ClassForm extends React.Component {
   constructor(props) {
@@ -32,9 +38,9 @@ class ClassForm extends React.Component {
   getHeader = () => {
     const { match: { params } } = this.props;
     if (params.classID) {
-      return 'Update';
+      return Strings.update;
     }
-    return 'Add';
+    return Strings.add;
   }
 
   handleChange = (state, value) => {
@@ -57,15 +63,15 @@ class ClassForm extends React.Component {
       <Row>
         <Col lg={{ span: 7, offset: 1 }} md={{ span: 7, offset: 1 }} sm={{ span: 22 }}>
           <JInput
-            placeholder="Add Division"
-            label="Name"
+            placeholder={Strings.addDivision}
+            label={Strings.name}
             value={name}
             onChange={({ target: { value } }) => this.handleChange('name', value)}
           />
         </Col>
         <Col lg={{ span: 7, offset: 1 }} md={{ span: 7, offset: 1 }} sm={{ span: 22 }}>
           <JSelect
-            label="Standard"
+            label={Strings.standard}
             options={CLASS}
             value={standard}
             style={{ width: '100%' }}
@@ -75,8 +81,8 @@ class ClassForm extends React.Component {
         </Col>
         <Col lg={{ span: 7, offset: 1 }} md={{ span: 7, offset: 1 }} sm={{ span: 22 }}>
           <JInput
-            placeholder="Add Division"
-            label="Division"
+            placeholder={Strings.addDivision}
+            label={Strings.division}
             value={division}
             onChange={({ target: { value } }) => this.handleChange('division', value)}
             required
@@ -86,7 +92,7 @@ class ClassForm extends React.Component {
       <Row>
         <Col lg={{ span: 7, offset: 1 }} md={{ span: 7, offset: 1 }} sm={{ span: 22 }}>
           <JSelect
-            label="Class Teacher"
+            label={Strings.classTeacher}
             options={teachers}
             value={classTeacher}
             style={{ width: '100%' }}
@@ -97,7 +103,7 @@ class ClassForm extends React.Component {
         <Col lg={{ span: 7, offset: 1 }} md={{ span: 7, offset: 1 }} sm={{ span: 22 }}>
           <TimePicker
             use12Hours
-            label="Start Time"
+            label={Strings.startTime}
             defaultValue={moment()}
             format="hh:mm a"
           />
@@ -105,7 +111,7 @@ class ClassForm extends React.Component {
         <Col lg={{ span: 7, offset: 1 }} md={{ span: 7, offset: 1 }} sm={{ span: 22 }}>
           <TimePicker
             use12Hours
-            label="End Time"
+            label={Strings.endTime}
             defaultValue={moment()}
             format="hh:mm a"
           />
@@ -122,7 +128,7 @@ class ClassForm extends React.Component {
         </Col>
         <Col lg={{ span: 2, offset: 1 }}>
           <JButton
-            name="Cancel"
+            name={Strings.cancel}
             onClick={this.handleCancel}
           />
         </Col>
@@ -133,13 +139,14 @@ class ClassForm extends React.Component {
 
   render() {
     const { loading } = this.state;
+    Strings.setLanguage(getItem('language'));
     return (
       <KeyListener onCancel={this.handleCancel}>
         <Row>
           <Col lg={{ offset: 5, span: 15 }} md={{ offset: 2, span: 20 }} sm={{ span: 22, offset: 2 }}>
             <div className="class-form">
               <div className="form-header">
-                {`${this.getHeader()} Class`}
+                {`${this.getHeader()} ${Strings.class}`}
               </div>
               {loading && <Skeleton active paragraph={3} />}
               {!loading && this.geClassForm(this.state)}

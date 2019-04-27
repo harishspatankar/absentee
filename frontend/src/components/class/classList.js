@@ -1,14 +1,18 @@
 import React from 'react';
 import { Empty, Row, Col } from 'antd';
 import { connect } from 'react-redux';
+import LocalizedStrings from 'react-localization';
+
 import { getClassList } from '../../actions/appActions/classActions';
 import ClassModel from '../../models/AppModel/ClassModel';
+import { strings } from './constants';
 
 import './class.scss';
 import ClassCard from './ClassCard';
 import routes from '../../utils/routes';
 import KeyListener from '../helpers/KeyListner';
 
+const Strings = new LocalizedStrings({ strings });
 class ClassList extends React.Component {
   constructor(props) {
     super(props);
@@ -78,7 +82,7 @@ class ClassList extends React.Component {
     const { classes } = this.props;
     if (!classes || classes.length === 0) {
       return (
-        <Empty description="No classes found"/>
+        <Empty description={Strings.noClassFound} />
       );
     }
     return (
