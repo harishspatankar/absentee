@@ -16,7 +16,7 @@ Rails.application.routes.draw do
 
     resources :upload_resources, only: [:index, :create, :destroy]
 
-
+    post 'sms_response' => 'home#sms_response'
     get 'students/:student_id/parents/:id' => 'parent#show'
 
     resources :upload, only: [:index, :create, :destroy]

@@ -24,6 +24,7 @@ class UploadResourcesController < ApplicationController
       render json: @resource.errors.messages, status: 422
     end
   end
+
   private
 
   def find_resource
