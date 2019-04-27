@@ -3,6 +3,7 @@ class Classroom < ApplicationRecord
   validate :start_time_cannot_be_greater_than_end_time
 
   has_many :students
+  has_many   :attendances
 
   def start_time_cannot_be_greater_than_end_time
     if start_time >= end_time

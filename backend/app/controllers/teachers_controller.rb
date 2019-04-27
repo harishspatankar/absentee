@@ -15,7 +15,7 @@ class TeachersController < ApplicationController
   end
 
   def create
-    teacher = Teacher.new(teacher_params)
+    teacher = current_school.teachers.new(teacher_params)
     if teacher.save
       render json: {message: "Teacher created successfully"}, status: 201
     else
@@ -47,6 +47,7 @@ class TeachersController < ApplicationController
     attendance = Attendance.find_or_initialize_by(
       teacher_id: @teacher.id,
       student_id: student.id,
+      classroom_id: student.classroom.id,
       date: Date.today
     )
 
@@ -60,6 +61,7 @@ class TeachersController < ApplicationController
   private
 
   def teacher_params
+    params.permit(:name, :email, :mobile, :qualification, :role_id, :gender)
   end
 
   def find_school_teacher

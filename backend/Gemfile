@@ -12,6 +12,7 @@ gem 'puma', '~> 3.11'
 gem 'devise'
 gem 'jwt'
 gem 'sidekiq'
+gem 'rack-cors'
 group :development do
   gem 'pry'
 end
