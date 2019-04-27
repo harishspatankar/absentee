@@ -3,7 +3,11 @@ class TeachersController < ApplicationController
   before_action :find_school_teachers, only: [:show, :edit, :destroy, :update]
 
   def index
-    render json: current_school.teachers
+    if params[:role_id]
+      render json: current_school.teachers.where(role_id: params[:role_id])
+    else
+      render json: current_school.teachers
+    end
   end
 
   def show
