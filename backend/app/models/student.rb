@@ -4,6 +4,7 @@ class Student < ApplicationRecord
   belongs_to :parent
   has_many   :attendances
   belongs_to :classroom
+  has_many :attendances
 
-  accepts_nested_attributes_for :address
+  # accepts_nested_attributes_for :address
 end
