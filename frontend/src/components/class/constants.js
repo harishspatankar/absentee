@@ -32,6 +32,12 @@ export const strings = {
     endTime: 'End Time',
     cancel: 'Cancel',
     class: 'Clasas',
+    total: 'Total',
+    failed: 'Failed',
+    present: 'Present',
+    presenty: 'Take Presenty',
+    editDetails: 'Edit Details',
+    viewStudent: 'View Students',
 
   },
   MR: {
@@ -47,5 +53,11 @@ export const strings = {
     endTime: 'समाप्त वेळ',
     cancel: 'रद्द करा ',
     class: 'वर्ग',
+    total: 'एकूण',
+    failed: 'असमर्थ',
+    present: 'हजर',
+    presenty: 'हजेरी घ्या',
+    editDetails: 'वर्ग बदला',
+    viewStudent: 'विद्यार्थी पहा',
   },
 };
