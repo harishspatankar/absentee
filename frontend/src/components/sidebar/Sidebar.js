@@ -28,9 +28,9 @@ class Sidebar extends Component {
     this.state = {
       open,
       language: getItem('language') || 'EN',
-      activeMenu: routes.targetGroupList,
+      activeMenu: routes.classList,
     };
-    props.history.push(routes.targetGroupList);
+    props.history.push(routes.classList);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -95,6 +95,10 @@ class Sidebar extends Component {
     if (key === "3") {
       this.props.history.push(routes.root);
       clearStorage();
+    }
+    if (key === "1") {
+      this.props.history.push(`${routes.teachers}/${getItem('resource_id')}/edit`);
+      // clearStorage();
     }
   }
 
