@@ -1,0 +1,4 @@
+development:
+  url:     'http://api.textlocal.in/send/'
+  api_key: <%= ENV['TEXTLOCAL_API_KEY'] %>
+  sender:  'ABSAPP'
