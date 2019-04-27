@@ -7,7 +7,7 @@ const REACT_APP_API_URL = process.env.REACT_APP_API_URL;
 
 export default class RequestHandler {
   static isAuthenticated() {
-    if (getItem('api_key')) {
+    if (!getItem('api_key')) {
       return false;
     }
     return true;
@@ -53,11 +53,11 @@ export default class RequestHandler {
 
   // HTTP Method get
   static get(action, params = '') {
-    // if (!RequestHandler.isAuthenticated()) {
-    //   return new Promise((resolve, reject) => {
+    if (!RequestHandler.isAuthenticated()) {
+      return new Promise((resolve, reject) => {
 
-    //   });
-    // }
+      });
+    }
     return new Promise((resolve, reject) => {
       fetch(`${REACT_APP_API_URL}${action}${params}`, RequestHandler.getHeader('get'))
         .then(response => ({ promise: response.json(), status: response.status }))

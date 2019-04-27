@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
-import { Skeleton, Row, Col, Switch } from 'antd';
+import { Skeleton, Row, Col, Switch, Empty } from 'antd';
+import { getStudents } from '../../actions/appActions/classActions';
+import JButton from '../reusable/JButton';
 import './presenty.scss';
+import routes from '../../utils/routes';
 
-const Student = ({ data: { name, roll, isPresent }, handleChange, index, activeIndex}) => (
+const Student = ({ data: { first_name, last_name, middle_name, roll_number, isPresent }, handleChange, index, activeIndex}) => (
   <div className={`student ${activeIndex === index ? 'active' : ''}` } >
-    <div className="roll">{roll}</div>
-    <div className="name">{name}</div>
+    <div className="roll">{roll_number}</div>
+    <div className="name">{`${last_name} ${first_name} ${middle_name}`}</div>
     <div className="switch">
       <Switch checkedChildren="P" unCheckedChildren="A" checked={isPresent} onChange={handleChange} />
     </div>
@@ -30,9 +33,26 @@ class Presenty extends Component {
   }
 
   componentDidMount() {
-    const { match : { params : { division, standard }}} = this.props;
+    const { match : { params : { classID }}} = this.props;
     document.addEventListener("keydown", this.handleKeyDown);
     // API
+    this.setState({
+      loading: true,
+    });
+    getStudents(classID)
+      .then((data) => {
+        console.log(data);
+        this.setState({
+          students: data,
+          loading: false,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+        this.setState({
+          loading: false,
+        });
+      });
   }
 
   componentWillUnmount() {
@@ -45,6 +65,9 @@ class Presenty extends Component {
       this.setState({
         activeIndex: -1
       });
+    }
+    if (event.key === "C" && event.altKey) {
+      this.handleCancel();
     }
     if (event.key === "ArrowDown") {
       if (activeIndex < this.state.students.length-1) {
@@ -75,11 +98,14 @@ class Presenty extends Component {
   }
 
   getStudents = () => {
+    if ( !this.state.students || this.state.students.length ===0) {
+      return <Empty description="No students in this class" />
+    }
     return this.state.students.map((student, index) => {
       return (
         <Student
           data={student}
-          handleChange={checked => this.handleChange(index, checked)}
+          handleChange={checked => this.handleChange(index, checked, student.id)}
           index={index}
           activeIndex={this.state.activeIndex}
           key={student+index}
@@ -88,9 +114,10 @@ class Presenty extends Component {
     });
   }
 
-  handleChange = (index, v) => {
+  handleChange = (index, value, studeID) => {
     const { students } = this.state;
-    students[index].isPresent = v;
+    console.log(studeID);
+    students[index].isPresent = value;
     this.setState({
       students,
     });
@@ -101,6 +128,10 @@ class Presenty extends Component {
       <>
       </>
     );
+  }
+
+  handleCancel = () => {
+    this.props.history.push(routes.classList);
   }
 
   render() {
@@ -120,6 +151,12 @@ class Presenty extends Component {
             </div>
           </>
         )}
+        <div className="aa">
+          <JButton
+            name="Cancle"
+            onClick={this.handleCancel}
+          />
+        </div>
       </div>
     );
   }
