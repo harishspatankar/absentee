@@ -38,6 +38,23 @@ class Sidebar extends Component {
     });
   }
 
+  componentDidMount() {
+    document.addEventListener('keydown', this.handleKeyDown);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.handleKeyDown);
+  }
+
+  handleKeyDown = ({ key, altKey }) => {
+    if(key.toUpperCase() === "E" && altKey) {
+      this.setLanguage(true);
+    }
+    if (key.toUpperCase() === "M" && altKey) {
+      this.setLanguage(false);
+    }
+  }
+
   handleMenuChange = ({ key }) => {
     if (key.includes('log-out')) {
       setItem('token', '');

@@ -31,8 +31,12 @@ class Presenty extends Component {
 
   componentDidMount() {
     const { match : { params : { division, standard }}} = this.props;
-    document.addEventListener("keydown", this.handleKeyDown)
+    document.addEventListener("keydown", this.handleKeyDown);
     // API
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this.handleKeyDown)
   }
 
   handleKeyDown = (event) => {
