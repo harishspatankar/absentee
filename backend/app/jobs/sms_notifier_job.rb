@@ -1,9 +1,16 @@
 class SmsNotifierJob < ApplicationJob
+  # include Sidekiq::Worker
+  include ActiveJobRetryControlable
   queue_as :default
   # after_perform { |job| p "=======================${$statsd}" }
-
-  retry_on Textlocal::DeliveryFailed # defaults to 3s wait, 5 attempts
+  retry_limit 5
+  # retry_on Textlocal::DeliveryFailed # defaults to 3s wait, 5 attempts
   discard_on ActiveJob::DeserializationError
+
+  rescue_from(Textlocal::DeliveryFailed) do |exception|
+    raise "Retry limit reached" and return if retry_limit_exceeded?
+    p retry_job
+  end
 
   def perform(msg, numbers, attendance)
     sms = Textlocal::SMS.new(msg, numbers)
