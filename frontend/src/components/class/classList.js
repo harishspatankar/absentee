@@ -26,10 +26,14 @@ class ClassList extends React.Component {
   }
 
   getClassListAPI = () => {
-    // getClassList()
-    // .then()ta
-    // .catch()
-
+    console.log('List')
+    getClassList()
+      .then((classes) => {
+        ClassModel.saveAll(classes.map(classss => new ClassModel(classss)));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     const classes = [
       {
         id: '10-123-123-',
@@ -50,7 +54,7 @@ class ClassList extends React.Component {
         totalStudents: 57,
       },
     ];
-    ClassModel.saveAll(classes.map(classss => new ClassModel(classss)));
+    // ClassModel.saveAll(classes.map(classss => new ClassModel(classss)));
   }
 
   handleTakePresentyClick = ({ standard, division }) => {
@@ -62,7 +66,7 @@ class ClassList extends React.Component {
     push(route);
   }
 
-  handleViewClassClick = (id) => {
+  handleViewClassClick = ({ id }) => {
     this.pushRoute(`${routes.classList}/${id}`);
   }
 

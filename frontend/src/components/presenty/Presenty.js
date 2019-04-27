@@ -82,6 +82,7 @@ class Presenty extends Component {
           handleChange={checked => this.handleChange(index, checked)}
           index={index}
           activeIndex={this.state.activeIndex}
+          key={student+index}
         />
       );
     });

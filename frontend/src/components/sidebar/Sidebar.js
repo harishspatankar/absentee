@@ -9,7 +9,7 @@ import LocalizedStrings from 'react-localization';
 import NAV_MENU from './Constants';
 import './Sidebar.scss';
 import routes from '../../utils/routes';
-import { setItem, getItem } from '../helpers/localStorage';
+import { setItem, getItem, clearStorage } from '../helpers/localStorage';
 
 const strigs = new LocalizedStrings({
   EN: {
@@ -90,17 +90,24 @@ class Sidebar extends Component {
     this.props.history.push(window.location);
   }
 
+  handleUserMenuClick = ({ key }) => {
+    if (key === "3") {
+      this.props.history.push(routes.root);
+      clearStorage();
+    }
+  }
+
   getAppAndUserName = () => {
     const menu = (
-      <Menu>
-        <Menu.Item>
-          <a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/">Update profile</a>
+      <Menu onClick={this.handleUserMenuClick}>
+        <Menu.Item key="1">
+          <span>Update profile</span>
+        </Menu.Item >
+        <Menu.Item key="2">
+          <span>Setting</span>
         </Menu.Item>
-        <Menu.Item>
-          <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">Setting</a>
-        </Menu.Item>
-        <Menu.Item>
-          <a target="_blank" rel="noopener noreferrer" href="http://www.tmall.com/">Logout</a>
+        <Menu.Item key="3">
+          <span>Logout</span>
         </Menu.Item>
       </Menu>
     );
@@ -124,7 +131,7 @@ class Sidebar extends Component {
 
   render() {
     const { open, activeMenu, language } = this.state;
-    strigs.setLanguage(getItem('language'));
+    strigs.setLanguage(getItem('language') || 'EN');
     return (
       <Sider
         breakpoint="lg"
