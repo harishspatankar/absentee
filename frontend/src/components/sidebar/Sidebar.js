@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import {
-    Layout, Menu, Icon, Divider,
+    Layout, Menu, Icon, Divider, Dropdown, Avatar,
 } from 'antd';
 import NAV_MENU from './Constants';
 import './Sidebar.scss';
@@ -54,6 +54,37 @@ class Sidebar extends Component {
       });
   }
 
+  
+
+  getAppAndUserName = () => {
+    const menu = (
+      <Menu>
+        <Menu.Item>
+          <a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/">Update profile</a>
+        </Menu.Item>
+        <Menu.Item>
+          <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">Setting</a>
+        </Menu.Item>
+        <Menu.Item>
+          <a target="_blank" rel="noopener noreferrer" href="http://www.tmall.com/">Logout</a>
+        </Menu.Item>
+      </Menu>
+    );
+    return (
+      <div className="user-profile">
+        <div className="sidebar-logo"> Absentee </div>
+        <div className="avatar"><Avatar shape="square" icon="user"/></div>
+        <div className="user-name">
+          <Dropdown overlay={menu}>
+            <a className="ant-dropdown-link" href="#">
+              Suhas More <Icon type="down" />
+            </a>
+          </Dropdown>
+        </div>
+      </div>
+    );
+  }
+
   render() {
     const { open, activeMenu } = this.state;
     return (
@@ -63,7 +94,7 @@ class Sidebar extends Component {
         onBreakpoint={(broken) => { console.log(broken); }}
         onCollapse={(collapsed, type) => { console.log(collapsed, type); }}
       >
-        <div className="sidebar-logo"> Absentee </div>
+        {this.getAppAndUserName()}
         <Divider />
         <Menu
             theme="dark"
