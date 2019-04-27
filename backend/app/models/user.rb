@@ -18,6 +18,10 @@ class User < ApplicationRecord
     false
   end
 
+  def teacher?
+    resource_type == "Teacher"
+  end
+
   def api_key
     JWT.encode({mobile_number: mobile_number}, JWT_SECRET)
   end
