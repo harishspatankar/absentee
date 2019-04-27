@@ -1,44 +1,29 @@
 import React, { PureComponent } from 'react';
 import { Row } from 'antd';
-import { withRouter } from 'react-router-dom';
-// import connect from 'react-redux';
+import { connect } from 'react-redux';
 import Teacher from '../Teacher';
+import TeacherModel from '../../../models/AppModel/TeacherModel';
 import './TeacherContainer.scss';
+import { getTeachers } from '../../../actions/appActions/TeacherActions';
 
 class TeacherContainer extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = {
-      teachers: [
-        {
-          id: '1',
-          name: 'ABCD EFGH',
-          classes: ['10 A', '8 B', '6 C'],
-          email: 'abcd@gmail.com',
-        },
-        {
-          id: '2',
-          name: 'IJKL MNOP',
-          classes: ['10 A', '8 B', '6 C'],
-          email: 'abcd@gmail.com',
-        },
-        {
-          id: '3',
-          name: 'QRST UVWX',
-          classes: ['10 A', '8 B', '6 C'],
-          email: 'abcd@gmail.com',
-        },
-        {
-          id: '4',
-          name: 'Z123 ABCD',
-          classes: ['10 A', '8 B', '6 C'],
-          email: 'abcd@gmail.com',
-        },
-      ],
-    };
   }
 
-  getTeachers = () => this.state.teachers
+  componentDidMount() {
+    this.getTeachersAPI();
+  }
+
+  getTeachersAPI = () => {
+    getTeachers().then((teachers) => {
+      TeacherModel.saveAll(teachers.map(teacher => new TeacherModel(teacher)));
+    }).catch((getTeachersError) => {
+      console.error(getTeachersError);
+    });
+  }
+
+  getTeachers = () => this.props.teachers
     .map(teacher => <Teacher key={teacher.id} teacher={teacher} {...this.props} />);
 
   render() {
@@ -50,4 +35,11 @@ class TeacherContainer extends PureComponent {
   }
 }
 
-export default withRouter(TeacherContainer);
+
+function mapStateToProps() {
+  return {
+    teachers: TeacherModel.list()[0] ? TeacherModel.list().map(item => item[1].props) : [],
+  };
+}
+
+export default connect(mapStateToProps)(TeacherContainer);

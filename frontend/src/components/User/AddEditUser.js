@@ -5,12 +5,37 @@ import {
 } from 'antd';
 import ReactPhoneInput from 'react-phone-input-2';
 import AddHeader from './AddHeader';
+import TeacherModel from '../../models/AppModel/TeacherModel';
+import { getTeacher } from '../../actions/appActions/TeacherActions';
 
 const { Option } = Select;
 
 class AddEditUserForm extends React.PureComponent {
   state={
     roleOptions: ['Teacher', 'Principal', 'Clerk'],
+    currentUser: {},
+  }
+
+  componentDidMount() {
+    const { match: { params: { id } } } = this.props;
+    console.log('id:', id);
+    getTeacher(id).then((user) => {
+      this.setState({ currentUser: user });
+      this.setInitialValues(user);
+    }).catch((userError) => {
+      console.error('\nGet User Error:', userError);
+    });
+  }
+
+  setInitialValues = (teacher) => {
+    const { form } = this.props;
+    form.setFieldsValue({
+      email: teacher.email,
+      gender: teacher.gender,
+      mobile: teacher.mobile,
+      qualification: teacher.qualification,
+      name: teacher.name,
+    });
   }
 
   handleSubmit = (e) => {
@@ -30,6 +55,7 @@ class AddEditUserForm extends React.PureComponent {
 
   render() {
     const { form: { getFieldDecorator } } = this.props;
+    const { currentUser } = this.state;
     return (
       <div className="form-wrapper">
         <Row>
@@ -89,7 +115,7 @@ class AddEditUserForm extends React.PureComponent {
                     required: true, message: 'Gender is required',
                   }],
                 })(
-                  <Switch checkedChildren="Male" unCheckedChildren="Female" />,
+                  <Switch checked={currentUser.gender} checkedChildren="Male" unCheckedChildren="Female" />,
                 )
               }
             </Form.Item>
