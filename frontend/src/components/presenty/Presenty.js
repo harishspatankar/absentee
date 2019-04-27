@@ -166,10 +166,6 @@ class Presenty extends Component {
             name="Cancle"
             onClick={this.handleCancel}
           />
-          <JButton
-            name="Mark Done"
-            onClick={this.handleMarkDone}
-          />
         </div>
       </div>
     );
