@@ -13,5 +13,6 @@ Rails.application.routes.draw do
     resources :upload, only: [:index, :create, :destroy]
     post 'users/sign_in' => 'sessions#create'
     delete 'users/sign_out' => 'sessions#destroy'
+    put 'teachers/:id/students/:student_id/mark_attendance' => "teachers#mark_attendance"
   end
 end
