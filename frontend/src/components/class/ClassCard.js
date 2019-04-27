@@ -35,7 +35,7 @@ class ClassCard extends React.Component {
               <span className="data">{total_present_count}</span>
             </div>
             <div className="data">
-              <span className="label failed">Faild</span>
+              <span className="label failed">Failed</span>
               <span className="data failed">{failed_sms_count}</span>
             </div>
           </div>

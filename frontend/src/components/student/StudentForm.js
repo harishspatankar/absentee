@@ -165,32 +165,100 @@ class StudentForm extends PureComponent {
             </Col>
           </Row>
           <Row gutter={6}>
-            <strong style={{ marginLeft: '5px' }}>Address:</strong>
-            <br />
-            {
-              Object.keys(address).map(key => (
-                <Col xs={24} sm={12} md={4} lg={4}>
-                  <Form.Item label={`${address[key]}`}>
-                    {
-                      getFieldDecorator(`${address[key]}`, {
-                        rules: this.getRulesForAddress(address[key]),
-                      })(
-                        address[key] === 'address_type'
-                          ? (
-                            <Select>
-                              <Option value="Permanent">Permanent</Option>
-                              <Option value="Current">Current</Option>
-                            </Select>
-                          )
-                          : <Input />,
-                      )
-                    }
-                  </Form.Item>
-                </Col>
-              ))
-            }
+            <Col xs={24} sm={12} md={4} lg={4}>
+              <Form.Item label="Address Type">
+                {
+                  getFieldDecorator('address_attributes[0].address_type', {
+                    rules: [{
+                      required: true, message: 'Address type is required',
+                    }],
+                  })(
+                    <Select>
+                      <Option value="Permanent">Permanent</Option>
+                      <Option value="Current">Current</Option>
+                    </Select>,
+                  )
+                }
+              </Form.Item>
+            </Col>
+            <Col xs={24} sm={12} md={4} lg={4}>
+              <Form.Item label="Line 1">
+                {
+                  getFieldDecorator('address_attributes[0].line_1', {
+                    rules: [{
+                      required: true, message: 'Line 1 address is required',
+                    }],
+                  })(
+                    <Input />,
+                  )
+                }
+              </Form.Item>
+            </Col>
+            <Col xs={24} sm={12} md={4} lg={4}>
+              <Form.Item label="Line 2">
+                {
+                  getFieldDecorator('address_attributes[0].line_2', {
+                    rules: [],
+                  })(
+                    <Input />,
+                  )
+                }
+              </Form.Item>
+            </Col>
           </Row>
-          <Row className='form-buttons-wrapper'>
+          <Row gutter={6}>
+            <Col xs={24} sm={12} md={4} lg={4}>
+              <Form.Item label="City">
+                {
+                  getFieldDecorator('address_attributes[0].city', {
+                    rules: [{
+                      required: true, message: 'City is required',
+                    }],
+                  })(
+                    <Input />,
+                  )
+                }
+              </Form.Item>
+            </Col>
+            <Col xs={24} sm={12} md={4} lg={4}>
+              <Form.Item label="State">
+                {
+                  getFieldDecorator('address_attributes[0].state', {
+                    rules: [{
+                      required: true, message: 'State is required',
+                    }],
+                  })(
+                    <Input />,
+                  )
+                }
+              </Form.Item>
+            </Col>
+            <Col xs={24} sm={12} md={4} lg={4}>
+              <Form.Item label="Pin Code">
+                {
+                  getFieldDecorator('address_attributes[0].pincode', {
+                    rules: [{
+                      required: true, message: 'Pin code is required',
+                    }],
+                  })(
+                    <Input />,
+                  )
+                }
+              </Form.Item>
+            </Col>
+            <Col xs={24} sm={12} md={4} lg={4}>
+              <Form.Item label="Landmark">
+                {
+                  getFieldDecorator('address_attributes[0].landmark', {
+                    rules: [],
+                  })(
+                    <Input />,
+                  )
+                }
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row className="form-buttons-wrapper">
             <Col xs={24} sm={12} md={4} lg={4}>
               <Form.Item>
                 <Button type="primary" htmlType="submit">Submit</Button>

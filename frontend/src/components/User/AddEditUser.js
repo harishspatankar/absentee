@@ -35,6 +35,16 @@ class AddEditUserForm extends React.PureComponent {
       mobile: teacher.mobile,
       qualification: teacher.qualification,
       name: teacher.name,
+      role: teacher.role.title,
+      address: [{
+        address_type: teacher.address.address_type,
+        line_1: teacher.address_type.line_1,
+        line_2: teacher.address_type.line_2,
+        city: teacher.address_type.city,
+        state: teacher.address_type.state,
+        pincode: teacher.address_type.pincode,
+        landmark: teacher.address_type.landmark,
+      }],
     });
   }
 
@@ -92,13 +102,94 @@ class AddEditUserForm extends React.PureComponent {
                 }
               </Form.Item>
             </Col>
-            <Col xs={24} sm={12} md={8} lg={8}>
-              <Form.Item label="Address">
+          </Row>
+          <Row gutter={6}>
+            <Col xs={24} sm={12} md={4} lg={4}>
+              <Form.Item label="Address Type">
                 {
-                  getFieldDecorator('address', {
+                  getFieldDecorator('address[0].address_type', {
                     rules: [{
-                      required: true, message: 'Address is required',
+                      required: true, message: 'Address type is required',
                     }],
+                  })(
+                    <Select>
+                      <Option value="Permanent">Permanent</Option>
+                      <Option value="Current">Current</Option>
+                    </Select>,
+                  )
+                }
+              </Form.Item>
+            </Col>
+            <Col xs={24} sm={12} md={4} lg={4}>
+              <Form.Item label="Line 1">
+                {
+                  getFieldDecorator('address[0].line_1', {
+                    rules: [{
+                      required: true, message: 'Line 1 address is required',
+                    }],
+                  })(
+                    <Input />,
+                  )
+                }
+              </Form.Item>
+            </Col>
+            <Col xs={24} sm={12} md={4} lg={4}>
+              <Form.Item label="Line 2">
+                {
+                  getFieldDecorator('address[0].line_2', {
+                    rules: [],
+                  })(
+                    <Input />,
+                  )
+                }
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row gutter={6}>
+            <Col xs={24} sm={12} md={4} lg={4}>
+              <Form.Item label="City">
+                {
+                  getFieldDecorator('address[0].city', {
+                    rules: [{
+                      required: true, message: 'City is required',
+                    }],
+                  })(
+                    <Input />,
+                  )
+                }
+              </Form.Item>
+            </Col>
+            <Col xs={24} sm={12} md={4} lg={4}>
+              <Form.Item label="State">
+                {
+                  getFieldDecorator('address[0].state', {
+                    rules: [{
+                      required: true, message: 'State is required',
+                    }],
+                  })(
+                    <Input />,
+                  )
+                }
+              </Form.Item>
+            </Col>
+            <Col xs={24} sm={12} md={4} lg={4}>
+              <Form.Item label="Pin Code">
+                {
+                  getFieldDecorator('address[0].pincode', {
+                    rules: [{
+                      required: true, message: 'Pin code is required',
+                    }],
+                  })(
+                    <Input />,
+                  )
+                }
+              </Form.Item>
+            </Col>
+            <Col xs={24} sm={12} md={4} lg={4}>
+              <Form.Item label="Landmark">
+                {
+                  getFieldDecorator('address[0].landmark', {
+                    rules: [],
                   })(
                     <Input />,
                   )

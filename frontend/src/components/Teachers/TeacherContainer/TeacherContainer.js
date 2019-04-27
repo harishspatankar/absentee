@@ -7,9 +7,9 @@ import './TeacherContainer.scss';
 import { getTeachers } from '../../../actions/appActions/TeacherActions';
 
 class TeacherContainer extends PureComponent {
-  constructor(props) {
+  /* constructor(props) {
     super(props);
-  }
+  } */
 
   componentDidMount() {
     this.getTeachersAPI();
