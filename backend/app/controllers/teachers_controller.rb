@@ -47,6 +47,7 @@ class TeachersController < ApplicationController
     attendance = Attendance.find_or_initialize_by(
       teacher_id: @teacher.id,
       student_id: student.id,
+      classroom_id: student.classroom.id,
       date: Date.today
     )
 

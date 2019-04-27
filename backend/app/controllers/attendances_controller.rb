@@ -21,8 +21,7 @@ class Attendances_controller < ApplicationController
   end
 
   def attendance_for_school
-
-    Attendance.where(classroom_id: params[:id])
+    
   end
 
 end

@@ -1,8 +1,9 @@
 class ParentsController < ApplicationController
+  before_action :set_student
   before_action :find_parent, only: [:show, :edit, :destroy, :update]
 
-  def index
-    render json: current_school.parents.as_json
+  def show
+    render json: @student.parents
   end
 
   def create
@@ -36,6 +37,10 @@ class ParentsController < ApplicationController
   def find_parent
     @parent = Parent.where(id: params[:id]).first
     render json: {message: "Parent not found"}, status: 404 unless @parent
+  end
+
+  def set_student
+    @student = Student.where(id: params[:student_id])
   end
 
   def parent_params
