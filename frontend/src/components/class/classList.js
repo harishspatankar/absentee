@@ -58,6 +58,11 @@ class ClassList extends React.Component {
     push(`${routes.classList}/${id}`);
   }
 
+  handleViewStudentList = (id) => {
+    const { history: { push } } = this.props;
+    push(`${routes.classList}/${id}/students`);
+  }
+
   getClassCard = (payload) => {
     return payload.map(data => (
       <Col lg={{ span: 7, offset: 1 }} sm={{ span: 10, offset: 1 }} md={{ span: 10, offset: 1 }}>
@@ -65,6 +70,7 @@ class ClassList extends React.Component {
           data={data}
           handleViewClick={() => this.handleViewClassClick(data.id)}
           handlePresenty={() => this.handleTakePresentyClick(data.id)}
+          handleViewStudentList = {() => this.handleViewStudentList(data.id)}
         />
       </Col>
     ));

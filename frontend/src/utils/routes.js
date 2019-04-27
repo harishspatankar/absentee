@@ -7,13 +7,14 @@ const routes = {
   addTeachers: `${dashboard}/teachers/add`,
   editTeacher: `${dashboard}/teachers/:id/edit`,
 
-  studentList: `${dashboard}/students`,
+  student: `${dashboard}/student/`,
+  studentList: `${dashboard}/class/:classID/students`,
   studentAdd: `${dashboard}/student/add`,
   studentEdit: `${dashboard}/student/:studentID`,
 
   classList: `${dashboard}/class`,
   classAdd: `${dashboard}/class/add`,
-  classEdit: `${dashboard}/class/:classID`
+  classEdit: `${dashboard}/class/:classID`,
 };
 
 export default routes;
