@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   # devise_for :users
   # resources :sessions, only: [:create, :destroy]
   # devise_for :users
@@ -10,7 +11,7 @@ Rails.application.routes.draw do
     resources :classrooms do
       resources :students
     end
-    resources :upload, only: [:index, :create, :destroy]
+    resources :upload_resources, only: [:index, :create, :destroy]
     post 'users/sign_in' => 'sessions#create'
     delete 'users/sign_out' => 'sessions#destroy'
   end

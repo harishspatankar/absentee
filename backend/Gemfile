@@ -13,6 +13,7 @@ gem 'devise'
 gem 'jwt'
 group :development do
   gem 'pry'
+  gem 'pry-nav'
 end
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.5'
@@ -49,3 +50,6 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'rails-observers'
+gem 'sidekiq'
+

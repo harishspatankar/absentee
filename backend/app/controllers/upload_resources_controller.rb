@@ -8,6 +8,8 @@ class UploadResourcesController < ApplicationController
 
   def create
     upload_resource = UploadResource.new(upload_resource_params)
+    upload_resource.uploaded_by = current_user || User.syste_admin_user
+    upload_resource.file.attach(upload_resource_params[:file])
     if upload_resource.save
       render json: {message: "Upload job created successfully."}, status: 201
     else
