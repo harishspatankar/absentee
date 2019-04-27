@@ -7,7 +7,7 @@ import { Skeleton } from 'antd';
 
 import routes from '../../utils/routes';
 import { showWarningNotification } from '../reusable/Notifications';
-import Dashboard from '../Dashboard/Dasgboard';
+import Dashboard from '../Dashboard/Dashboard';
 
 
 import StudentList from '../student/studentList';

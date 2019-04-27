@@ -32,20 +32,20 @@ class ClassCard extends React.Component {
               <span className="data">98</span>
             </div>
             <div className="data">
-              <span className="label">Faild</span>
-              <span className="data">2</span>
+              <span className="label failed">Faild</span>
+              <span className="data failed">2</span>
             </div>
           </div>
         </div>
         <div className="c-action">
           <div className="present" onClick={this.props.handlePresenty} role="button">
-            Take Presenty
+            Mark Attendance
           </div>
           <div className="view" onClick={this.props.handleViewClick} role="button">
-            Edit Details
+            Edit
           </div>
           <div className="view" onClick={this.props.handleViewClick} role="button">
-            View Students
+            View
           </div>
         </div>
       </div>
