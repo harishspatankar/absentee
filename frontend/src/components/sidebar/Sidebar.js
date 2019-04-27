@@ -27,6 +27,7 @@ class Sidebar extends Component {
     const { open } = props;
     this.state = {
       open,
+      language: getItem('language') || 'EN',
       activeMenu: routes.targetGroupList,
     };
     props.history.push(routes.targetGroupList);

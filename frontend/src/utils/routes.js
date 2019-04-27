@@ -15,7 +15,7 @@ const routes = {
   classAdd: `${dashboard}/class/add`,
   classEdit: `${dashboard}/class/:classID`,
 
-  presenty: `${dashboard}/present/:standard/:division`,
+  presenty: `${dashboard}/attendance/:classID`,
 
 };
 
