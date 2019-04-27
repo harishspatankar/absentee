@@ -35,13 +35,14 @@ class HomeController < ApplicationController
         date:         Date.today
       ).first
       if (attendance && attendance.is_present) || attendance.blank?
-        attendance = Attendance.create(
+        attendance = Attendance.find_or_initialize_by(
           teacher_id:   reporter.id,
           student_id:   student.id,
           classroom_id: student.classroom_id,
           date:         Date.today
           is_present:   presence_status == 'Present'
         )
+        attendance.save
 
         SmsNotifierJob.set(wait: 3).perform_later(student, student.parent.pluck(:primary_contact).last)
       end
