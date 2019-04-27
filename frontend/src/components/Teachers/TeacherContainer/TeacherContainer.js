@@ -1,5 +1,8 @@
+/* eslint-disable indent */
+/* eslint-disable react/prop-types */
+/* eslint-disable react/destructuring-assignment */
 import React, { PureComponent } from 'react';
-import { Row } from 'antd';
+import { Row, Empty } from 'antd';
 import { connect } from 'react-redux';
 import Teacher from '../Teacher';
 import TeacherModel from '../../../models/AppModel/TeacherModel';
@@ -28,8 +31,21 @@ class TeacherContainer extends PureComponent {
     push(routes.addTeachers);
   }
 
-  getTeachers = () => this.props.teachers
-    .map(teacher => <Teacher key={teacher.id} teacher={teacher} {...this.props} />);
+  getTeachers = () => {
+    if (!this.props.teachers || this.props.teachers.length === 0) {
+      return (
+        <Empty description="No teachers found." />
+      );
+    }
+    return (
+      <>
+        {
+          this.props.teachers
+            .map(teacher => <Teacher key={teacher.id} teacher={teacher} {...this.props} />)
+        }
+      </>
+    );
+  }
 
   render() {
     return (
@@ -41,7 +57,7 @@ class TeacherContainer extends PureComponent {
             onClick={this.handleAddTeacher}
           />
         </div>
-        <Row className="teachers-wrapper">
+        <Row className="teachers-wrapper" style={{ textAlign: 'center' }}>
           {this.getTeachers()}
         </Row>
       </KeyListener>

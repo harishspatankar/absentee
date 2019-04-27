@@ -12,6 +12,7 @@ import ClassCard from './ClassCard';
 import routes from '../../utils/routes';
 import KeyListener from '../helpers/KeyListner';
 import JButton from '../reusable/JButton';
+import { getItem } from '../helpers/localStorage';
 
 const Strings = new LocalizedStrings({ strings });
 class ClassList extends React.Component {
@@ -87,11 +88,12 @@ class ClassList extends React.Component {
   }
 
   render() {
+    Strings.setLanguage(getItem('language'));
     return (
       <KeyListener onNew={this.handleAddClick}>
         <div className="add-class">
           <JButton
-            name="Add New Class"
+            name="Add new class"
             icon="plus"
             onClick={this.handleAddClick}
           />

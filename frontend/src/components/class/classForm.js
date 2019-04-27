@@ -24,8 +24,8 @@ class ClassForm extends React.Component {
       loading: false,
       submitLoading: false,
       standard: '5th',
-      startTime: moment(),
-      endTime: moment(),
+      startTime: moment(new Date()),
+      endTime: moment(new Date()),
       teachers: [],
     };
   }
@@ -63,8 +63,8 @@ class ClassForm extends React.Component {
   setData =({ title, standard, divison, start_time, end_time }) => {
     this.setState({
       name: title,
-      startTime: start_time,
-      endTime: end_time,
+      startTime: moment(start_time),
+      endTime: moment(end_time),
       standard,
       division: divison,
     });
@@ -210,20 +210,20 @@ class ClassForm extends React.Component {
         </Col>
         <Col lg={{ span: 7, offset: 1 }} md={{ span: 7, offset: 1 }} sm={{ span: 22 }}>
           <TimePicker
-            use12Hours
             label={Strings.startTime}
-            value={moment()}
-            onChange={value => this.handleChange('startTime', value)}
+            value={startTime}
+            use12Hours
             format="hh:mm a"
+            onChange={(time, timeToString) => this.handleChange('startTime', time)}
           />
         </Col>
         <Col lg={{ span: 7, offset: 1 }} md={{ span: 7, offset: 1 }} sm={{ span: 22 }}>
           <TimePicker
-            use12Hours
             label={Strings.endTime}
-            value={moment()}
-            onChange={value => this.handleChange('endTime', value)}
+            value={endTime}
+            use12Hours
             format="hh:mm a"
+            onChange={(time, timeToString) => this.handleChange('endTime', time)}
           />
         </Col>
       </Row>

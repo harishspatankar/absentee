@@ -38,6 +38,7 @@ export const strings = {
     presenty: 'Take Presenty',
     editDetails: 'Edit Details',
     viewStudent: 'View Students',
+    addNewClass: 'Add new class',
 
   },
   MR: {
@@ -59,5 +60,6 @@ export const strings = {
     presenty: 'हजेरी घ्या',
     editDetails: 'वर्ग बदला',
     viewStudent: 'विद्यार्थी पहा',
+    addNewClass: 'नवीन वर्ग बनवा',
   },
 };

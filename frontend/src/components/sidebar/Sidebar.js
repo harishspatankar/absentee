@@ -48,10 +48,13 @@ class Sidebar extends Component {
   }
 
   handleKeyDown = ({ key, altKey }) => {
-    if(key.toUpperCase() === "E" && altKey) {
+    if(key.toUpperCase() === "W" && altKey) {
       this.setLanguage(true);
     }
     if (key.toUpperCase() === "M" && altKey) {
+      this.setLanguage(false);
+    }
+    if (key.toUpperCase() === "T" && altKey) {
       this.setLanguage(false);
     }
   }
