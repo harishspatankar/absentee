@@ -15,6 +15,9 @@ const routes = {
   classList: `${dashboard}/class`,
   classAdd: `${dashboard}/class/add`,
   classEdit: `${dashboard}/class/:classID`,
+
+  presenty: `${dashboard}/present/:standard/:division`,
+
 };
 
 export default routes;

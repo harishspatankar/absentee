@@ -60,6 +60,8 @@
       padding: 2%;
       div {
         cursor: pointer;
+        border-right: 1px solid #eee;
+        padding: 0px 2px; 
       }
       div:hover {
         text-decoration: underline;

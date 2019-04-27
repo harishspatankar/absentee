@@ -1,0 +1,39 @@
+.presenty-container {
+  .student-list {
+    margin: 3% 7%;
+    border: 3px solid #bbb;
+    padding: 1%;
+    height: 89vh;
+    overflow: auto;
+    .student {
+      display: flex;
+      margin: 1%;
+      padding: 1%;
+      border: 1px solid #eee;
+      justify-content: space-around;
+      .roll {
+        font-weight: 600;
+        font-size: 19px;
+        padding: 3px;
+      }
+      .name {
+        padding: 7px 14px;
+        font-size: 15px;
+        font-weight: 500;
+      }
+      .switch {
+        padding: 7px 1px;
+      }
+    }
+    .student:hover {
+      box-shadow: 15px 20px 19px 3px #d8c6c6;
+      background: #cdffcd;
+      border: 1px solid #a7a7a7;
+    }
+    .active {
+      box-shadow: 15px 20px 19px 3px #d8c6c6;
+      background: #cdffcd;
+      border: 1px solid #a7a7a7;
+    }
+  }
+}

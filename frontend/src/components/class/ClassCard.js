@@ -8,7 +8,7 @@ import { Divider } from 'antd';
 class ClassCard extends React.Component {
   render() {
     const { data : {
-      standerd,
+      standard,
       division,
       id
     } } = this.props;
@@ -17,7 +17,7 @@ class ClassCard extends React.Component {
       <div className="class-card">
         <div className="c-data">
           <div className="std">
-            <div>{standerd}<sup>th</sup></div>
+            <div>{standard}<sup>th</sup></div>
           </div>
           <div className="div">
             <div>{division}</div>
@@ -38,7 +38,7 @@ class ClassCard extends React.Component {
           </div>
         </div>
         <div className="c-action">
-          <div className="present" onClick={this.props.handlePresenty}>
+          <div className="present" onClick={this.props.handlePresenty} role="button">
             Take Presenty
           </div>
           <div className="view" onClick={this.props.handleViewClick} role="button">

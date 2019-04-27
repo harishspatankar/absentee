@@ -29,19 +29,19 @@ class ClassList extends React.Component {
     const classes = [
       {
         id: '10-123-123-',
-        standerd: 10,
+        standard: 10,
         division: 'A',
         totalStudents: 57,
       },
       {
         id: '123-123-123-',
-        standerd: 10,
+        standard: 10,
         division: 'B',
         totalStudents: 57,
       },
       {
         id: '12-123-123-',
-        standerd: 10,
+        standard: 10,
         division: 'C',
         totalStudents: 57,
       },
@@ -49,13 +49,17 @@ class ClassList extends React.Component {
     ClassModel.saveAll(classes.map(classss => new ClassModel(classss)));
   }
 
-  handleTakePresentyClick = (id) => {
-    console.log(id);
+  handleTakePresentyClick = ({ standard, division }) => {
+    this.pushRoute(`${routes.dashboard}/present/${standard}/${division}`);
+  }
+
+  pushRoute = (route) => {
+    const { history: { push } } = this.props;
+    push(route);
   }
 
   handleViewClassClick = (id) => {
-    const { history: { push } } = this.props;
-    push(`${routes.classList}/${id}`);
+    this.pushRoute(`${routes.classList}/${id}`);
   }
 
   handleViewStudentList = (id) => {
@@ -65,12 +69,12 @@ class ClassList extends React.Component {
 
   getClassCard = (payload) => {
     return payload.map(data => (
-      <Col lg={{ span: 7, offset: 1 }} sm={{ span: 10, offset: 1 }} md={{ span: 10, offset: 1 }}>
+      <Col lg={{ span: 7, offset: 1 }} sm={{ span: 10, offset: 1 }} md={{ span: 10, offset: 1 }} key={data.id}>
         <ClassCard
           data={data}
-          handleViewClick={() => this.handleViewClassClick(data.id)}
-          handlePresenty={() => this.handleTakePresentyClick(data.id)}
-          handleViewStudentList = {() => this.handleViewStudentList(data.id)}
+          handleViewClick={() => this.handleViewClassClick(data)}
+          handlePresenty={() => this.handleTakePresentyClick(data)}
+          handleViewStudentList={() => this.handleViewStudentList(data.id)}
         />
       </Col>
     ));

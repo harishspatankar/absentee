@@ -17,9 +17,10 @@ import StudentListContainer from '../student/StudentListContainer/StudentListCon
 
 import ClassList from '../class/classList';
 import ClassForm from '../class/classForm';
-import Dahshboard from '../Dashboard/Dasgboard';
 import Teachers from '../Teachers/TeacherContainer/TeacherContainer';
 import addUser from '../User/AddEditUser';
+
+import Presenty from '../presenty/Presenty';
 
 
 function isAuthenticated() {
@@ -64,6 +65,7 @@ const MainContent = () => (
       <PrivateRoute exact path={routes.classAdd} component={ClassForm} />
       <PrivateRoute exact path={routes.classEdit} component={ClassForm} />
 
+      <PrivateRoute exact path={routes.presenty} component={Presenty} />
       <PrivateRoute exact path={routes.teachers} component={Teachers} />
       <PrivateRoute exact path={routes.addTeachers} component={addUser} />
       <PrivateRoute exact path={routes.editTeacher} component={addUser} />
