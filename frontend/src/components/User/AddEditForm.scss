@@ -1,3 +1,7 @@
-.form-wrapper {
-  
+.form-buttons-wrapper {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
+  flex-direction: row;
 }

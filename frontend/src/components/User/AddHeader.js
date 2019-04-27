@@ -1,4 +1,4 @@
 import React from 'react';
 
-const addFormHeader = () => <h1>Add/Edit User</h1>;
+const addFormHeader = () => <h2>Add/Edit User</h2>;
 export default addFormHeader;
