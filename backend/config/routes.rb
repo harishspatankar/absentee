@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   # devise_for :users
   # resources :sessions, only: [:create, :destroy]
   # devise_for :users
@@ -12,6 +13,9 @@ Rails.application.routes.draw do
         resources :parents
       end
     end
+
+    resources :upload_resources, only: [:index, :create, :destroy]
+
 
     get 'students/:student_id/parents/:id' => 'parent#show'
 

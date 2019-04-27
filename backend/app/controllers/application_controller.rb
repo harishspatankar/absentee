@@ -1,11 +1,11 @@
 class ApplicationController < ActionController::API
-  before_action :authenticate!
+  #before_action :authenticate!
 
   X_API_KEY = 'X-API-KEY'
   AUTHORIZATION = 'Authorization'
 
   def jwt_payload
-    @jwt_payload ||= JWT.decode(request.headers[X_API_KEY], JWT_SECRET)
+    @jwt_payload ||= JWT.decode(request.headers[X_API_KEY], JWT_SECRET) rescue nil
   end
 
   def current_school
@@ -13,7 +13,7 @@ class ApplicationController < ActionController::API
   end
 
   def current_user
-    @current_user ||= User.where(mobile_number: jwt_payload.first["mobile_number"]).first
+    @current_user ||= User.where(mobile_number: jwt_payload.first["mobile_number"]).first rescue nil
   end
 
   def auth_token

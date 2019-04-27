@@ -25,3 +25,4 @@
 /backend/db/schema.rb
 .DS_Store
 /backend/coverage
+/public/uploads/*

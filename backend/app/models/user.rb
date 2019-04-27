@@ -8,7 +8,10 @@ class User < ApplicationRecord
   validates :mobile_number, presence: true
   validates :mobile_number, format: { with: /\A[6789]\d{9}\z/, message: "Not a valid mobile no" }
 
+  scope :syste_admin_user,  -> { where(":check_role_ids = ANY(role_ids)", check_role_ids: [Role.where(title: 'Super Admin').first.id] ).first }
+
   belongs_to :resource, polymorphic: true, required: false
+
 
   def email_required?
     false
