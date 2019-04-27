@@ -37,6 +37,11 @@ class Presenty extends Component {
 
   handleKeyDown = (event) => {
     const { activeIndex, students } = this.state;
+    if (event.key === "Escape") {
+      this.setState({
+        activeIndex: -1
+      });
+    }
     if (event.key === "ArrowDown") {
       if (activeIndex < this.state.students.length-1) {
         this.setState({
@@ -51,13 +56,13 @@ class Presenty extends Component {
         });
       }
     }
-    if (event.key === "ArrowRight") {
+    if (event.key === "ArrowRight" && activeIndex >=0) {
       students[activeIndex].isPresent = true;
       this.setState({
         students,
       });
     }
-    if (event.key === "ArrowLeft") {
+    if (event.key === "ArrowLeft" && activeIndex >=0 ) {
       students[activeIndex].isPresent = false;
       this.setState({
         students,

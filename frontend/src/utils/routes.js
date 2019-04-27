@@ -4,6 +4,8 @@ const routes = {
   root,
   dashboard,
   teachers: `${dashboard}/teachers`,
+  addTeachers: `${dashboard}/teachers/add`,
+  editTeacher: `${dashboard}/teachers/:id/edit`,
 
   studentList: `${dashboard}/students`,
   studentAdd: `${dashboard}/student/add`,

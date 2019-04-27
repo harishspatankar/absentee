@@ -7,7 +7,6 @@ import { Skeleton } from 'antd';
 
 import routes from '../../utils/routes';
 import { showWarningNotification } from '../reusable/Notifications';
-import Teachers from '../Teachers/Teachers';
 import Dashboard from '../Dashboard/Dasgboard';
 
 
@@ -16,6 +15,8 @@ import StudentForm from '../student/studentForm';
 
 import ClassList from '../class/classList';
 import ClassForm from '../class/classForm';
+import Teachers from '../Teachers/TeacherContainer/TeacherContainer';
+import addUser from '../User/AddEditUser';
 
 import Presenty from '../presenty/Presenty';
 
@@ -53,7 +54,6 @@ const MainContent = () => (
   <Suspense fallback={<Skeleton active paragraph />}>
     <Switch>
       <PrivateRoute exact path={routes.dashboard} component={Dashboard} />
-      <PrivateRoute exact path={routes.teachers} component={Teachers} />
 
       <PrivateRoute exact path={routes.studentList} component={StudentList} />
       <PrivateRoute exact path={routes.studentAdd} component={StudentForm} />
@@ -64,6 +64,9 @@ const MainContent = () => (
       <PrivateRoute exact path={routes.classEdit} component={ClassForm} />
 
       <PrivateRoute exact path={routes.presenty} component={Presenty} />
+      <PrivateRoute exact path={routes.teachers} component={Teachers} />
+      <PrivateRoute exact path={routes.addTeachers} component={addUser} />
+      <PrivateRoute exact path={routes.editTeacher} component={addUser} />
 
     </Switch>
   </Suspense>
