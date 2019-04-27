@@ -20,14 +20,15 @@ class SmsNotifierJob < ApplicationJob
     ).last
 
     if todays_attendance.present? && !todays_attendance.is_present
-      msg = "Your child #{student.first_name} is absent today."
-      sms = Textlocal::SMS.new(msg, numbers)
+      msg = "Your child #{student.first_name} is absent today as per attendance marked by teacher."
+      sms = Textlocal::SMS.new(msg, numbers, todays_attendance.id)
       sms.deliver!
       if sms.result['status'] == 'failure'
         raise Textlocal::DeliveryFailed
         # attendance.update_delivery_status('failed')
       elsif sms.result['status'] == 'success'
-        attendance.update_delivery_status('success')
+        DeliveryStatus.create(sms_sent_at_primary: true, attendance_id: todays_attendance.id)
+        # attendance.update_delivery_status('success')
       end
     end
   end

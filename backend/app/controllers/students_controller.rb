@@ -5,7 +5,12 @@ class StudentsController < ApplicationController
 
   def index
     classroom = Classroom.find(params[:classroom_id])
-    students = classroom.students
+    students_attendance = Attendance.where(classroom_id: params[:classroom_id],
+      teacher_id: current_user.id, date: Date.today ).as_json
+
+    students = classroom.students.as_json(methods: [:is_present],
+      students_attendance: students_attendance)
+
     render json: students
   end
 

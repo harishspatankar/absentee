@@ -10,8 +10,10 @@ class Student < ApplicationRecord
   accepts_nested_attributes_for :address
 
   def as_json(options={})
-    json_to_return = super(only: [:roll_number, :first_name, :middle_name,
+    json_to_return = super(only: [:id, :roll_number, :first_name, :middle_name,
       :last_name, :gender, :date_of_birth, :blood_group, :photo])
+    attendance = options[:students_attendance].find {|attendance| attendance["student_id"] == self.id }
+    json_to_return.merge!({is_present: attendance.present? ? attendance["is_present"] : true})
     json_to_return
   end
 end

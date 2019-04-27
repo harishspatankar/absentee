@@ -1,5 +1,4 @@
 class TeachersController < ApplicationController
-
   before_action :find_school_teacher, only: [:show, :edit, :destroy, :update, :mark_attendance]
 
   def index
@@ -15,7 +14,7 @@ class TeachersController < ApplicationController
   end
 
   def create
-    teacher = current_school.teachers.new(teacher_params)
+    teacher = Teacher.new(teacher_params)
     if teacher.save
       render json: {message: "Teacher created successfully"}, status: 201
     else
@@ -47,11 +46,11 @@ class TeachersController < ApplicationController
     attendance = Attendance.find_or_initialize_by(
       teacher_id: @teacher.id,
       student_id: student.id,
-      classroom_id: student.classroom.id,
       date: Date.today
     )
 
     if attendance.update_attributes(is_present: params[:is_present])
+       SmsNotifierJob.set(wait: 3).perform(student, student.parent.pluck(:primary_contact).last) if attendance.is_present
       render json: {}, status: 200
     else
       render json: {message: "Failed to mark attendance for student #{student.first_name}"}, status: 422

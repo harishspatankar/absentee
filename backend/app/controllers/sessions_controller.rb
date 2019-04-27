@@ -1,6 +1,14 @@
 class SessionsController < ApplicationController
   # skip_before_action :validate_jwt_token!, only: [:create]
-  skip_before_action :authenticate!, only: [:create ]
+  skip_before_action :authenticate!, only: [:create, :delivery ]
+
+  def delivery
+    attendance = Attendance.find params[:customID]
+    delivery_status = attendance.delivery_status
+    delivery_status.status = params[:status]
+    delivery_status.sms_delivered_at_primary = params[:datetime]
+    delivery_status.save
+  end
 
   def create
     head :bad_request and return false unless params[:user].present?

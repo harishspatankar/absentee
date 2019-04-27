@@ -2,13 +2,14 @@ module Textlocal
   class SMS
     attr_reader :numbers, :message, :sender, :result
 
-    def initialize(msg, numbers, unicode=false)
+    def initialize(msg, numbers, custom)
       @url      = TEXTLOCAL['url']
       @api_key  = TEXTLOCAL['api_key']
       @sender   = TEXTLOCAL['sender']
       @numbers  = format_numbers(numbers)
       @message = format_message(msg)
-      @unicode = unicode
+      @unicode = false
+      @custom = custom
     end
 
     def deliver!
@@ -25,9 +26,11 @@ module Textlocal
         message: message,
         sender: sender,
         numbers: numbers,
-        unicode: @unicode
+        unicode: @unicode,
+        custom: @custom,
+        receipt_url: "http://16f0bc96.ngrok.io/delivery.json"
       }
-      attrs.merge!(test: true)
+      # attrs.merge!(test: true)
       attrs
     end
 

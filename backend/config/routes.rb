@@ -19,5 +19,7 @@ Rails.application.routes.draw do
     post 'users/sign_in' => 'sessions#create'
     delete 'users/sign_out' => 'sessions#destroy'
     put 'teachers/:id/students/:student_id/mark_attendance' => "teachers#mark_attendance"
+    post 'delivery' => "sessions#delivery"
+    # put 'classrooms/:id/mark_attendance_done' => "classrooms#mark_attendance_done"
   end
 end
