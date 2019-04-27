@@ -139,7 +139,7 @@ class ClassForm extends React.Component {
 
   render() {
     const { loading } = this.state;
-    Strings.setLanguage(getItem('language'));
+    Strings.setLanguage(getItem('language') || 'EN');
     return (
       <KeyListener onCancel={this.handleCancel}>
         <Row>

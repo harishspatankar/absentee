@@ -7,7 +7,7 @@ const REACT_APP_API_URL = process.env.REACT_APP_API_URL;
 
 export default class RequestHandler {
   static isAuthenticated() {
-    if (true) {
+    if (getItem('api_key')) {
       return false;
     }
     return true;
@@ -20,7 +20,8 @@ export default class RequestHandler {
       headers: {
         Accept: 'application/vnd.questionbank.v1',
         'Content-Type': 'application/json',
-        // Authorization: getItem('token'),
+        'x-api-key': getItem('api_key'),
+        Authorization: getItem('auth_token'),
       },
     };
     if (!isFile) {
@@ -52,11 +53,11 @@ export default class RequestHandler {
 
   // HTTP Method get
   static get(action, params = '') {
-    if (!RequestHandler.isAuthenticated()) {
-      return new Promise((resolve, reject) => {
+    // if (!RequestHandler.isAuthenticated()) {
+    //   return new Promise((resolve, reject) => {
 
-      });
-    }
+    //   });
+    // }
     return new Promise((resolve, reject) => {
       fetch(`${REACT_APP_API_URL}${action}${params}`, RequestHandler.getHeader('get'))
         .then(response => ({ promise: response.json(), status: response.status }))
