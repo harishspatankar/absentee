@@ -50,7 +50,7 @@ class ClassCard extends React.Component {
           <div className="view" onClick={this.props.handleViewClick} role="button">
             {Strings.editDetails}
           </div>
-          <div className="view" onClick={this.props.handleViewClick} role="button">
+          <div className="view" onClick={this.props.handleViewStudentList} role="button">
             {Strings.viewStudent}
           </div>
         </div>

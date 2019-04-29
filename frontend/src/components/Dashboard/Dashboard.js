@@ -22,31 +22,12 @@ class Dashboard extends PureComponent {
   }
 
   getClassListAPI = () => {
-    // getClassList()
-    // .then()ta
-    // .catch()
+  //   // getClassList()
+  //   // .then()ta
+  //   // .catch()
 
-    const classes = [
-      {
-        id: '10-123-123-',
-        standard: 10,
-        division: 'A',
-        totalStudents: 57,
-      },
-      {
-        id: '123-123-123-',
-        standard: 10,
-        division: 'B',
-        totalStudents: 57,
-      },
-      {
-        id: '12-123-123-',
-        standard: 10,
-        division: 'C',
-        totalStudents: 57,
-      },
-    ];
-    ClassModel.saveAll(classes.map(classss => new ClassModel(classss)));
+   
+  //   ClassModel.saveAll(classes.map(classss => new ClassModel(classss)));
   }
 
   handleTakePresentyClick = ({ standard, division }) => {

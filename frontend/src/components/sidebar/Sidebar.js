@@ -40,24 +40,24 @@ class Sidebar extends Component {
   }
 
   componentDidMount() {
-    document.addEventListener('keydown', this.handleKeyDown);
+    // document.addEventListener('keydown', this.handleKeyDown);
   }
 
   componentWillUnmount() {
-    document.removeEventListener('keydown', this.handleKeyDown);
+    // document.removeEventListener('keydown', this.handleKeyDown);
   }
 
-  handleKeyDown = ({ key, altKey }) => {
-    if(key.toUpperCase() === "W" && altKey) {
-      this.setLanguage(true);
-    }
-    if (key.toUpperCase() === "M" && altKey) {
-      this.setLanguage(false);
-    }
-    if (key.toUpperCase() === "T" && altKey) {
-      this.setLanguage(false);
-    }
-  }
+  // handleKeyDown = ({ key, altKey }) => {
+  //   // if(key.toUpperCase() === "W" && altKey) {
+  //   //   this.setLanguage(true);
+  //   // }
+  //   // if (key.toUpperCase() === "M" && altKey) {
+  //   //   this.setLanguage(false);
+  //   // }
+  //   // if (key.toUpperCase() === "T" && altKey) {
+  //   //   this.setLanguage(false);
+  //   // }
+  // }
 
   handleMenuChange = ({ key }) => {
     if (key.includes('log-out')) {

@@ -78,7 +78,7 @@ class AddEditUserForm extends React.PureComponent {
       <KeyListener onCancel={this.handleCancel}>
         <div className="form-wrapper">
           <AddHeader />
-          <Form layout="horizontal" onSubmit={this.handleSubmit}>
+          <Form layout="horizontal" onSubmit={this.handleSubmit} autoComplete="off">
             <Row gutter={6}>
               <Col xs={24} sm={12} md={8} lg={8}>
                 <Form.Item label="Name">

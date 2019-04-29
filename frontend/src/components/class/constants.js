@@ -31,7 +31,7 @@ export const strings = {
     startTime: 'Start Time',
     endTime: 'End Time',
     cancel: 'Cancel',
-    class: 'Clasas',
+    class: 'Class',
     total: 'Total',
     failed: 'Failed',
     present: 'Present',

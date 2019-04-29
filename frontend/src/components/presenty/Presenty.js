@@ -7,7 +7,7 @@ import routes from '../../utils/routes';
 import { showSuccessNotification } from '../reusable/Notifications';
 
 const Student = ({ data: { first_name, last_name, middle_name, roll_number, is_present }, handleChange, index, activeIndex}) => (
-  <div className={`student ${activeIndex === index ? 'active' : ''}` } >
+  <div className="student">
     <div className="roll">{roll_number}</div>
     <div className="name">{`${last_name} ${first_name} ${middle_name}`}</div>
     <div className="switch">
@@ -63,43 +63,45 @@ class Presenty extends Component {
     })
   }
 
-  handleKeyDown = (event) => {
-    const { activeIndex, students } = this.state;
-    if (event.key === "Escape") {
-      this.setState({
-        activeIndex: -1
-      });
-    }
-    if (event.key === "C" && event.altKey) {
-      this.handleCancel();
-    }
-    if (event.key === "ArrowDown") {
-      if (activeIndex < this.state.students.length-1) {
-        this.setState({
-          activeIndex: activeIndex+1,
-        });
-      }
-    }
-    if (event.key === "ArrowUp") {
-      if (activeIndex > 0) {
-        this.setState({
-          activeIndex: activeIndex-1,
-        });
-      }
-    }
-    if (event.key === "ArrowRight" && activeIndex >=0) {
-      students[activeIndex].isPresent = true;
-      this.setState({
-        students,
-      });
-    }
-    if (event.key === "ArrowLeft" && activeIndex >=0 ) {
-      students[activeIndex].isPresent = false;
-      this.setState({
-        students,
-      });
-    }
-  }
+  // handleKeyDown = (event) => {
+  //   const { activeIndex, students } = this.state;
+  //   console.log(event, activeIndex);
+
+  //   if (event.key === "Escape") {
+  //     this.setState({
+  //       activeIndex: -1
+  //     });
+  //   }
+  //   if (event.key === "C" && event.altKey) {
+  //     this.handleCancel();
+  //   }
+  //   if (event.key === "ArrowDown") {
+  //     if (activeIndex < this.state.students.length-1) {
+  //       this.setState({
+  //         activeIndex: activeIndex+1,
+  //       });
+  //     }
+  //   }
+  //   if (event.key === "ArrowUp") {
+  //     if (activeIndex > 0) {
+  //       this.setState({
+  //         activeIndex: activeIndex-1,
+  //       });
+  //     }
+  //   }
+  //   if (event.key.toUpperCase() === "P" && activeIndex >=0) {
+  //     students[activeIndex].isPresent = true;
+  //     this.setState({
+  //       students,
+  //     });
+  //   }
+  //   if (event.key.toUpperCase() === "A" && activeIndex >=0 ) {
+  //     students[activeIndex].isPresent = false;
+  //     this.setState({
+  //       students,
+  //     });
+  //   }
+  // }
 
   getStudents = () => {
     if ( !this.state.students || this.state.students.length ===0) {
@@ -111,7 +113,7 @@ class Presenty extends Component {
           data={student}
           handleChange={checked => this.handleChange(index, checked, student.id)}
           index={index}
-          activeIndex={this.state.activeIndex}
+          // activeIndex={this.state.activeIndex}
           key={student+index}
         />
       );
@@ -163,7 +165,7 @@ class Presenty extends Component {
         )}
         <div className="aa">
           <JButton
-            name="Cancle"
+            name="Cancel"
             onClick={this.handleCancel}
           />
         </div>

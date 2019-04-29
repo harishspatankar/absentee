@@ -16,7 +16,7 @@ const HeaderContainer = styled.div`
 
 const Header = () => (
   <HeaderContainer>
-    <span>App Header</span>
+    <span>Asistencia</span>
   </HeaderContainer>
 );
 
